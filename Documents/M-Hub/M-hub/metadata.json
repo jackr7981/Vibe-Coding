@@ -1,0 +1,8 @@
+{
+  "name": "BD Mariner Hub",
+  "description": "A professional companion app for Bangladeshi Mariners, featuring profile management and AI assistance.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
