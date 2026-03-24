@@ -1,0 +1,835 @@
+{
+  "config": {
+    "train_end": "2024-06-30",
+    "top_n_neighbors": 30,
+    "discovery_horizon": "outcome_4h"
+  },
+  "swing_rankings_top20": [
+    {
+      "filter": "bar_range_trend",
+      "spread": 25.436893203883486,
+      "type": "numeric",
+      "best_value": "high",
+      "best_swing_rate": 71.5
+    },
+    {
+      "filter": "momentum_divergence",
+      "spread": 23.55408656111333,
+      "type": "numeric",
+      "best_value": "high",
+      "best_swing_rate": 70.9
+    },
+    {
+      "filter": "bar_range_variability",
+      "spread": 21.889746355765773,
+      "type": "numeric",
+      "best_value": "low",
+      "best_swing_rate": 73.7
+    },
+    {
+      "filter": "atr_percentile",
+      "spread": 21.455799954318056,
+      "type": "numeric",
+      "best_value": "high",
+      "best_swing_rate": 72.5
+    },
+    {
+      "filter": "volatility_trend",
+      "spread": 20.749665042223263,
+      "type": "categorical",
+      "best_value": "contracting",
+      "best_swing_rate": 71.7
+    },
+    {
+      "filter": "range_vs_atr_ratio",
+      "spread": 20.206093189964157,
+      "type": "numeric",
+      "best_value": "high",
+      "best_swing_rate": 72.0
+    },
+    {
+      "filter": "prior_close_reaction",
+      "spread": 19.542069313735116,
+      "type": "categorical",
+      "best_value": "swept",
+      "best_swing_rate": 63.4
+    },
+    {
+      "filter": "gap_filled_bool",
+      "spread": 17.97832924699913,
+      "type": "categorical",
+      "best_value": "True",
+      "best_swing_rate": 61.9
+    },
+    {
+      "filter": "prior_high_reaction",
+      "spread": 16.576035978954295,
+      "type": "categorical",
+      "best_value": "swept",
+      "best_swing_rate": 69.0
+    },
+    {
+      "filter": "session_range_ratio",
+      "spread": 16.458576589670127,
+      "type": "numeric",
+      "best_value": "high",
+      "best_swing_rate": 69.8
+    },
+    {
+      "filter": "ib_range_pips",
+      "spread": 16.265851379587936,
+      "type": "numeric",
+      "best_value": "high",
+      "best_swing_rate": 68.7
+    },
+    {
+      "filter": "post_orb_break_low_dist_pips",
+      "spread": 16.08462575102,
+      "type": "numeric",
+      "best_value": "high",
+      "best_swing_rate": 71.3
+    },
+    {
+      "filter": "range_development_speed",
+      "spread": 16.020928524280986,
+      "type": "numeric",
+      "best_value": "low",
+      "best_swing_rate": 69.9
+    },
+    {
+      "filter": "prior_ib_break_direction",
+      "spread": 15.789823874755381,
+      "type": "categorical",
+      "best_value": "both",
+      "best_swing_rate": 66.9
+    },
+    {
+      "filter": "intraday_vol_shape",
+      "spread": 15.65035985912746,
+      "type": "categorical",
+      "best_value": "back_loaded",
+      "best_swing_rate": 70.1
+    },
+    {
+      "filter": "post_orb_break_high_dist_pips",
+      "spread": 15.588848284131785,
+      "type": "numeric",
+      "best_value": "high",
+      "best_swing_rate": 71.9
+    },
+    {
+      "filter": "prior_va_high_reaction",
+      "spread": 15.58374406872301,
+      "type": "categorical",
+      "best_value": "swept",
+      "best_swing_rate": 64.3
+    },
+    {
+      "filter": "post_ib_break_direction",
+      "spread": 15.298238747553816,
+      "type": "categorical",
+      "best_value": "both",
+      "best_swing_rate": 66.3
+    },
+    {
+      "filter": "distance_from_prior_high_pips",
+      "spread": 14.601041826115003,
+      "type": "numeric",
+      "best_value": "low",
+      "best_swing_rate": 69.3
+    },
+    {
+      "filter": "distance_from_prior_low_pips",
+      "spread": 14.374985022196608,
+      "type": "numeric",
+      "best_value": "high",
+      "best_swing_rate": 69.1
+    }
+  ],
+  "tercile_boundaries": {
+    "bar_range_trend": [
+      -0.4403000000000002,
+      0.3613
+    ],
+    "momentum_divergence": [
+      -0.2093,
+      0.2007
+    ],
+    "bar_range_variability": [
+      0.5438999999999998,
+      0.6830999999999997
+    ],
+    "atr_percentile": [
+      0.35,
+      0.7
+    ],
+    "range_vs_atr_ratio": [
+      0.2243,
+      0.38539999999999963
+    ],
+    "session_range_ratio": [
+      0.9185,
+      1.0694999999999995
+    ],
+    "ib_range_pips": [
+      0.0008500000000000174,
+      0.0015100000000001224
+    ],
+    "post_orb_break_low_dist_pips": [
+      0.00032,
+      0.00121
+    ],
+    "range_development_speed": [
+      0.3941,
+      0.6169
+    ]
+  },
+  "results_1h": [
+    {
+      "combo_group": "high_high",
+      "filters": [
+        "bar_range_trend",
+        "range_vs_atr_ratio"
+      ],
+      "train_pool": 2522,
+      "test_triggers": 1211,
+      "predictions": 1211,
+      "direction_accuracy": 54.0,
+      "swing_capture_rate": 47.4,
+      "train_swing_rate": 48.9,
+      "total_pnl": 904.3
+    },
+    {
+      "combo_group": "high_high",
+      "filters": [
+        "momentum_divergence",
+        "range_vs_atr_ratio"
+      ],
+      "train_pool": 2494,
+      "test_triggers": 1223,
+      "predictions": 1223,
+      "direction_accuracy": 53.6,
+      "swing_capture_rate": 46.9,
+      "train_swing_rate": 48.2,
+      "total_pnl": 1020.0
+    },
+    {
+      "combo_group": "high_high",
+      "filters": [
+        "momentum_divergence",
+        "atr_percentile"
+      ],
+      "train_pool": 2734,
+      "test_triggers": 1333,
+      "predictions": 1333,
+      "direction_accuracy": 53.5,
+      "swing_capture_rate": 46.1,
+      "train_swing_rate": 46.6,
+      "total_pnl": 752.3
+    },
+    {
+      "combo_group": "swept_high",
+      "filters": [
+        "prior_high_reaction",
+        "post_orb_break_low_dist_pips"
+      ],
+      "train_pool": 474,
+      "test_triggers": 206,
+      "predictions": 206,
+      "direction_accuracy": 53.1,
+      "swing_capture_rate": 51.5,
+      "train_swing_rate": 53.0,
+      "total_pnl": 21.7
+    },
+    {
+      "combo_group": "high_high",
+      "filters": [
+        "bar_range_trend",
+        "post_orb_break_low_dist_pips"
+      ],
+      "train_pool": 2579,
+      "test_triggers": 1147,
+      "predictions": 1147,
+      "direction_accuracy": 53.0,
+      "swing_capture_rate": 43.2,
+      "train_swing_rate": 45.1,
+      "total_pnl": 777.3
+    },
+    {
+      "combo_group": "contracting_high",
+      "filters": [
+        "volatility_trend",
+        "range_vs_atr_ratio"
+      ],
+      "train_pool": 1145,
+      "test_triggers": 428,
+      "predictions": 428,
+      "direction_accuracy": 51.4,
+      "swing_capture_rate": 26.2,
+      "train_swing_rate": 37.1,
+      "total_pnl": 46.1
+    },
+    {
+      "combo_group": "high_high",
+      "filters": [
+        "bar_range_trend",
+        "atr_percentile"
+      ],
+      "train_pool": 2752,
+      "test_triggers": 1327,
+      "predictions": 1327,
+      "direction_accuracy": 51.4,
+      "swing_capture_rate": 46.4,
+      "train_swing_rate": 47.1,
+      "total_pnl": 180.2
+    },
+    {
+      "combo_group": "high_low",
+      "filters": [
+        "bar_range_trend",
+        "bar_range_variability"
+      ],
+      "train_pool": 1233,
+      "test_triggers": 696,
+      "predictions": 696,
+      "direction_accuracy": 50.5,
+      "swing_capture_rate": 34.8,
+      "train_swing_rate": 44.1,
+      "total_pnl": -208.4
+    },
+    {
+      "combo_group": "contracting_high",
+      "filters": [
+        "volatility_trend",
+        "ib_range_pips"
+      ],
+      "train_pool": 1225,
+      "test_triggers": 527,
+      "predictions": 527,
+      "direction_accuracy": 50.4,
+      "swing_capture_rate": 39.8,
+      "train_swing_rate": 41.1,
+      "total_pnl": 110.1
+    },
+    {
+      "combo_group": "low_contracting",
+      "filters": [
+        "bar_range_variability",
+        "volatility_trend"
+      ],
+      "train_pool": 2290,
+      "test_triggers": 1351,
+      "predictions": 1351,
+      "direction_accuracy": 49.9,
+      "swing_capture_rate": 22.8,
+      "train_swing_rate": 31.4,
+      "total_pnl": -269.2
+    },
+    {
+      "combo_group": "high_high",
+      "filters": [
+        "bar_range_trend",
+        "ib_range_pips"
+      ],
+      "train_pool": 982,
+      "test_triggers": 434,
+      "predictions": 434,
+      "direction_accuracy": 49.8,
+      "swing_capture_rate": 67.1,
+      "train_swing_rate": 66.0,
+      "total_pnl": -79.8
+    },
+    {
+      "combo_group": "contracting_high",
+      "filters": [
+        "volatility_trend",
+        "post_orb_break_low_dist_pips"
+      ],
+      "train_pool": 2087,
+      "test_triggers": 879,
+      "predictions": 879,
+      "direction_accuracy": 49.5,
+      "swing_capture_rate": 29.5,
+      "train_swing_rate": 34.5,
+      "total_pnl": -480.7
+    },
+    {
+      "combo_group": "high_low",
+      "filters": [
+        "momentum_divergence",
+        "bar_range_variability"
+      ],
+      "train_pool": 1278,
+      "test_triggers": 737,
+      "predictions": 737,
+      "direction_accuracy": 49.3,
+      "swing_capture_rate": 34.7,
+      "train_swing_rate": 43.5,
+      "total_pnl": -129.5
+    },
+    {
+      "combo_group": "high_high",
+      "filters": [
+        "momentum_divergence",
+        "ib_range_pips"
+      ],
+      "train_pool": 1005,
+      "test_triggers": 463,
+      "predictions": 463,
+      "direction_accuracy": 49.2,
+      "swing_capture_rate": 64.1,
+      "train_swing_rate": 64.2,
+      "total_pnl": 23.7
+    },
+    {
+      "combo_group": "high_contracting",
+      "filters": [
+        "atr_percentile",
+        "volatility_trend"
+      ],
+      "train_pool": 1521,
+      "test_triggers": 607,
+      "predictions": 607,
+      "direction_accuracy": 46.6,
+      "swing_capture_rate": 26.4,
+      "train_swing_rate": 34.6,
+      "total_pnl": -274.9
+    }
+  ],
+  "baseline_1h": {
+    "bull_pct": 50.179004503984295,
+    "swing_rate": 21.820373719107895
+  },
+  "results_2h": [
+    {
+      "combo_group": "high_high",
+      "filters": [
+        "bar_range_trend",
+        "post_orb_break_low_dist_pips"
+      ],
+      "train_pool": 2579,
+      "test_triggers": 1147,
+      "predictions": 1147,
+      "direction_accuracy": 52.6,
+      "swing_capture_rate": 61.9,
+      "train_swing_rate": 62.4,
+      "total_pnl": 449.4
+    },
+    {
+      "combo_group": "swept_high",
+      "filters": [
+        "prior_high_reaction",
+        "post_orb_break_low_dist_pips"
+      ],
+      "train_pool": 474,
+      "test_triggers": 206,
+      "predictions": 206,
+      "direction_accuracy": 52.4,
+      "swing_capture_rate": 69.9,
+      "train_swing_rate": 68.4,
+      "total_pnl": 190.1
+    },
+    {
+      "combo_group": "high_low",
+      "filters": [
+        "bar_range_trend",
+        "bar_range_variability"
+      ],
+      "train_pool": 1233,
+      "test_triggers": 696,
+      "predictions": 696,
+      "direction_accuracy": 52.2,
+      "swing_capture_rate": 56.3,
+      "train_swing_rate": 65.9,
+      "total_pnl": 350.8
+    },
+    {
+      "combo_group": "high_high",
+      "filters": [
+        "bar_range_trend",
+        "range_vs_atr_ratio"
+      ],
+      "train_pool": 2522,
+      "test_triggers": 1211,
+      "predictions": 1211,
+      "direction_accuracy": 51.9,
+      "swing_capture_rate": 65.2,
+      "train_swing_rate": 66.0,
+      "total_pnl": 450.6
+    },
+    {
+      "combo_group": "high_low",
+      "filters": [
+        "momentum_divergence",
+        "bar_range_variability"
+      ],
+      "train_pool": 1278,
+      "test_triggers": 737,
+      "predictions": 737,
+      "direction_accuracy": 51.6,
+      "swing_capture_rate": 56.0,
+      "train_swing_rate": 64.3,
+      "total_pnl": 422.9
+    },
+    {
+      "combo_group": "high_high",
+      "filters": [
+        "momentum_divergence",
+        "atr_percentile"
+      ],
+      "train_pool": 2734,
+      "test_triggers": 1333,
+      "predictions": 1333,
+      "direction_accuracy": 51.2,
+      "swing_capture_rate": 63.8,
+      "train_swing_rate": 63.8,
+      "total_pnl": 214.0
+    },
+    {
+      "combo_group": "low_contracting",
+      "filters": [
+        "bar_range_variability",
+        "volatility_trend"
+      ],
+      "train_pool": 2290,
+      "test_triggers": 1351,
+      "predictions": 1351,
+      "direction_accuracy": 51.1,
+      "swing_capture_rate": 46.6,
+      "train_swing_rate": 59.9,
+      "total_pnl": -178.7
+    },
+    {
+      "combo_group": "contracting_high",
+      "filters": [
+        "volatility_trend",
+        "range_vs_atr_ratio"
+      ],
+      "train_pool": 1145,
+      "test_triggers": 428,
+      "predictions": 428,
+      "direction_accuracy": 51.0,
+      "swing_capture_rate": 49.3,
+      "train_swing_rate": 60.1,
+      "total_pnl": -81.8
+    },
+    {
+      "combo_group": "high_high",
+      "filters": [
+        "momentum_divergence",
+        "range_vs_atr_ratio"
+      ],
+      "train_pool": 2494,
+      "test_triggers": 1223,
+      "predictions": 1223,
+      "direction_accuracy": 50.9,
+      "swing_capture_rate": 64.8,
+      "train_swing_rate": 65.1,
+      "total_pnl": 420.4
+    },
+    {
+      "combo_group": "contracting_high",
+      "filters": [
+        "volatility_trend",
+        "ib_range_pips"
+      ],
+      "train_pool": 1225,
+      "test_triggers": 527,
+      "predictions": 527,
+      "direction_accuracy": 50.0,
+      "swing_capture_rate": 64.7,
+      "train_swing_rate": 69.8,
+      "total_pnl": -5.6
+    },
+    {
+      "combo_group": "high_high",
+      "filters": [
+        "bar_range_trend",
+        "atr_percentile"
+      ],
+      "train_pool": 2752,
+      "test_triggers": 1327,
+      "predictions": 1327,
+      "direction_accuracy": 49.9,
+      "swing_capture_rate": 63.9,
+      "train_swing_rate": 64.6,
+      "total_pnl": 272.5
+    },
+    {
+      "combo_group": "high_high",
+      "filters": [
+        "momentum_divergence",
+        "ib_range_pips"
+      ],
+      "train_pool": 1005,
+      "test_triggers": 463,
+      "predictions": 463,
+      "direction_accuracy": 48.9,
+      "swing_capture_rate": 82.3,
+      "train_swing_rate": 79.2,
+      "total_pnl": 164.5
+    },
+    {
+      "combo_group": "high_contracting",
+      "filters": [
+        "atr_percentile",
+        "volatility_trend"
+      ],
+      "train_pool": 1521,
+      "test_triggers": 607,
+      "predictions": 607,
+      "direction_accuracy": 48.7,
+      "swing_capture_rate": 48.4,
+      "train_swing_rate": 58.2,
+      "total_pnl": 56.8
+    },
+    {
+      "combo_group": "contracting_high",
+      "filters": [
+        "volatility_trend",
+        "post_orb_break_low_dist_pips"
+      ],
+      "train_pool": 2087,
+      "test_triggers": 879,
+      "predictions": 879,
+      "direction_accuracy": 45.7,
+      "swing_capture_rate": 51.6,
+      "train_swing_rate": 56.9,
+      "total_pnl": -739.8
+    },
+    {
+      "combo_group": "high_high",
+      "filters": [
+        "bar_range_trend",
+        "ib_range_pips"
+      ],
+      "train_pool": 982,
+      "test_triggers": 434,
+      "predictions": 434,
+      "direction_accuracy": 45.3,
+      "swing_capture_rate": 84.1,
+      "train_swing_rate": 81.2,
+      "total_pnl": -523.5
+    }
+  ],
+  "baseline_2h": {
+    "bull_pct": 50.67672509429776,
+    "swing_rate": 38.61147392745906
+  },
+  "results_4h": [
+    {
+      "combo_group": "high_high",
+      "filters": [
+        "bar_range_trend",
+        "post_orb_break_low_dist_pips"
+      ],
+      "train_pool": 2579,
+      "test_triggers": 1147,
+      "predictions": 1147,
+      "direction_accuracy": 53.5,
+      "swing_capture_rate": 79.5,
+      "train_swing_rate": 81.0,
+      "total_pnl": 895.2
+    },
+    {
+      "combo_group": "contracting_high",
+      "filters": [
+        "volatility_trend",
+        "range_vs_atr_ratio"
+      ],
+      "train_pool": 1145,
+      "test_triggers": 428,
+      "predictions": 428,
+      "direction_accuracy": 52.9,
+      "swing_capture_rate": 79.0,
+      "train_swing_rate": 85.0,
+      "total_pnl": 469.3
+    },
+    {
+      "combo_group": "contracting_high",
+      "filters": [
+        "volatility_trend",
+        "post_orb_break_low_dist_pips"
+      ],
+      "train_pool": 2087,
+      "test_triggers": 879,
+      "predictions": 879,
+      "direction_accuracy": 52.8,
+      "swing_capture_rate": 77.5,
+      "train_swing_rate": 81.8,
+      "total_pnl": 390.7
+    },
+    {
+      "combo_group": "high_high",
+      "filters": [
+        "momentum_divergence",
+        "ib_range_pips"
+      ],
+      "train_pool": 1005,
+      "test_triggers": 463,
+      "predictions": 463,
+      "direction_accuracy": 51.6,
+      "swing_capture_rate": 92.2,
+      "train_swing_rate": 88.7,
+      "total_pnl": 239.6
+    },
+    {
+      "combo_group": "high_high",
+      "filters": [
+        "momentum_divergence",
+        "atr_percentile"
+      ],
+      "train_pool": 2734,
+      "test_triggers": 1333,
+      "predictions": 1333,
+      "direction_accuracy": 50.1,
+      "swing_capture_rate": 81.0,
+      "train_swing_rate": 81.3,
+      "total_pnl": -443.3
+    },
+    {
+      "combo_group": "high_low",
+      "filters": [
+        "bar_range_trend",
+        "bar_range_variability"
+      ],
+      "train_pool": 1233,
+      "test_triggers": 696,
+      "predictions": 696,
+      "direction_accuracy": 49.7,
+      "swing_capture_rate": 80.2,
+      "train_swing_rate": 84.2,
+      "total_pnl": 521.8
+    },
+    {
+      "combo_group": "high_high",
+      "filters": [
+        "bar_range_trend",
+        "atr_percentile"
+      ],
+      "train_pool": 2752,
+      "test_triggers": 1327,
+      "predictions": 1327,
+      "direction_accuracy": 48.9,
+      "swing_capture_rate": 81.5,
+      "train_swing_rate": 82.3,
+      "total_pnl": -398.9
+    },
+    {
+      "combo_group": "contracting_high",
+      "filters": [
+        "volatility_trend",
+        "ib_range_pips"
+      ],
+      "train_pool": 1225,
+      "test_triggers": 527,
+      "predictions": 527,
+      "direction_accuracy": 48.8,
+      "swing_capture_rate": 90.3,
+      "train_swing_rate": 89.1,
+      "total_pnl": -623.1
+    },
+    {
+      "combo_group": "high_high",
+      "filters": [
+        "bar_range_trend",
+        "range_vs_atr_ratio"
+      ],
+      "train_pool": 2522,
+      "test_triggers": 1211,
+      "predictions": 1211,
+      "direction_accuracy": 48.5,
+      "swing_capture_rate": 82.7,
+      "train_swing_rate": 82.6,
+      "total_pnl": -482.0
+    },
+    {
+      "combo_group": "low_contracting",
+      "filters": [
+        "bar_range_variability",
+        "volatility_trend"
+      ],
+      "train_pool": 2290,
+      "test_triggers": 1351,
+      "predictions": 1351,
+      "direction_accuracy": 48.4,
+      "swing_capture_rate": 77.9,
+      "train_swing_rate": 86.0,
+      "total_pnl": -23.2
+    },
+    {
+      "combo_group": "high_low",
+      "filters": [
+        "momentum_divergence",
+        "bar_range_variability"
+      ],
+      "train_pool": 1278,
+      "test_triggers": 737,
+      "predictions": 737,
+      "direction_accuracy": 48.0,
+      "swing_capture_rate": 79.4,
+      "train_swing_rate": 81.8,
+      "total_pnl": 162.6
+    },
+    {
+      "combo_group": "high_high",
+      "filters": [
+        "momentum_divergence",
+        "range_vs_atr_ratio"
+      ],
+      "train_pool": 2494,
+      "test_triggers": 1223,
+      "predictions": 1223,
+      "direction_accuracy": 47.9,
+      "swing_capture_rate": 82.1,
+      "train_swing_rate": 81.6,
+      "total_pnl": -620.3
+    },
+    {
+      "combo_group": "high_contracting",
+      "filters": [
+        "atr_percentile",
+        "volatility_trend"
+      ],
+      "train_pool": 1521,
+      "test_triggers": 607,
+      "predictions": 607,
+      "direction_accuracy": 47.7,
+      "swing_capture_rate": 77.9,
+      "train_swing_rate": 83.6,
+      "total_pnl": 75.1
+    },
+    {
+      "combo_group": "swept_high",
+      "filters": [
+        "prior_high_reaction",
+        "post_orb_break_low_dist_pips"
+      ],
+      "train_pool": 474,
+      "test_triggers": 206,
+      "predictions": 206,
+      "direction_accuracy": 47.4,
+      "swing_capture_rate": 81.1,
+      "train_swing_rate": 84.0,
+      "total_pnl": -416.3
+    },
+    {
+      "combo_group": "high_high",
+      "filters": [
+        "bar_range_trend",
+        "ib_range_pips"
+      ],
+      "train_pool": 982,
+      "test_triggers": 434,
+      "predictions": 434,
+      "direction_accuracy": 45.8,
+      "swing_capture_rate": 94.0,
+      "train_swing_rate": 90.2,
+      "total_pnl": -776.9
+    }
+  ],
+  "baseline_4h": {
+    "bull_pct": 50.75220287986245,
+    "swing_rate": 60.791800643086816
+  }
+}
