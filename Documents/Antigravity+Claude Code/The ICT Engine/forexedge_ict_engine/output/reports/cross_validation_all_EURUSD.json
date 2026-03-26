@@ -1,0 +1,110 @@
+{
+  "2024-01": {
+    "fvg": {
+      "sample_month": "2024-01",
+      "sample_bars": 2100,
+      "our_total": 478,
+      "our_bullish": 230,
+      "our_bearish": 248,
+      "smc_total": 475,
+      "smc_bullish": 228,
+      "smc_bearish": 247,
+      "count_diff_pct": 0.6,
+      "verdict": "PASS"
+    },
+    "swings": {
+      "sample_month": "2024-01",
+      "our_total": 533,
+      "our_highs": 262,
+      "our_lows": 271,
+      "smc_total": 537,
+      "smc_highs": 268,
+      "smc_lows": 269,
+      "count_diff_pct": 0.7,
+      "verdict": "PASS"
+    },
+    "bos": {
+      "sample_month": "2024-01",
+      "our_total": 181,
+      "our_bos": 97,
+      "our_choch": 84,
+      "smc_total": 198,
+      "smc_bos": 137,
+      "smc_choch": 61,
+      "count_diff_pct": 8.6,
+      "verdict": "INVESTIGATE"
+    }
+  },
+  "2024-06": {
+    "fvg": {
+      "sample_month": "2024-06",
+      "sample_bars": 1928,
+      "our_total": 440,
+      "our_bullish": 210,
+      "our_bearish": 230,
+      "smc_total": 436,
+      "smc_bullish": 207,
+      "smc_bearish": 229,
+      "count_diff_pct": 0.9,
+      "verdict": "PASS"
+    },
+    "swings": {
+      "sample_month": "2024-06",
+      "our_total": 473,
+      "our_highs": 244,
+      "our_lows": 229,
+      "smc_total": 526,
+      "smc_highs": 263,
+      "smc_lows": 263,
+      "count_diff_pct": 10.1,
+      "verdict": "INVESTIGATE"
+    },
+    "bos": {
+      "sample_month": "2024-06",
+      "our_total": 175,
+      "our_bos": 93,
+      "our_choch": 82,
+      "smc_total": 186,
+      "smc_bos": 116,
+      "smc_choch": 70,
+      "count_diff_pct": 5.9,
+      "verdict": "INVESTIGATE"
+    }
+  },
+  "2024-12": {
+    "fvg": {
+      "sample_month": "2024-12",
+      "sample_bars": 2054,
+      "our_total": 446,
+      "our_bullish": 212,
+      "our_bearish": 234,
+      "smc_total": 435,
+      "smc_bullish": 211,
+      "smc_bearish": 224,
+      "count_diff_pct": 2.5,
+      "verdict": "PASS"
+    },
+    "swings": {
+      "sample_month": "2024-12",
+      "our_total": 551,
+      "our_highs": 277,
+      "our_lows": 274,
+      "smc_total": 572,
+      "smc_highs": 286,
+      "smc_lows": 286,
+      "count_diff_pct": 3.7,
+      "verdict": "PASS"
+    },
+    "bos": {
+      "sample_month": "2024-12",
+      "our_total": 195,
+      "our_bos": 101,
+      "our_choch": 94,
+      "smc_total": 207,
+      "smc_bos": 131,
+      "smc_choch": 76,
+      "count_diff_pct": 5.8,
+      "verdict": "INVESTIGATE"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "pair": "EURUSD",
+  "data": {
+    "candles_15min": 125205,
+    "trading_days": 1342,
+    "date_range": "2021-01-03 22:00:00 to 2026-02-27 21:45:00"
+  },
+  "detections": {
+    "fvg": 27133,
+    "swings": 32046,
+    "sweeps": 9749,
+    "bos_choch": 11720,
+    "order_blocks": 11679
+  },
+  "validation": {
+    "fvg_fill": {
+      "status": "PASS",
+      "oos_accuracy": 0.9371,
+      "fire_rate": 0.2185,
+      "signal_count": 2559,
+      "threshold": "n_positive >= 20"
+    },
+    "sweep_reversal": {
+      "status": "FAIL",
+      "oos_positive_rr": 0.5074,
+      "signal_count": 473,
+      "best_filtered_oos": 0.7273
+    },
+    "bos_choch": {
+      "status": "FAIL",
+      "oos_positive_rr": 0.4885
+    },
+    "order_block_fill": {
+      "status": "FAIL",
+      "oos_accuracy": 0.8649,
+      "fire_rate": 0.0445
+    }
+  },
+  "ship_ready": [
+    "fvg_fill"
+  ],
+  "needs_work": [
+    "sweep_reversal (filter-enhanced, needs more OOS data)",
+    "order_block_fill (86.5%, close to 90% threshold)"
+  ],
+  "killed": [
+    "bos_choch (no directional edge found)"
+  ]
+}

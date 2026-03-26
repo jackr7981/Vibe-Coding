@@ -1,0 +1,10 @@
+{
+  "concept": "sweep_reversal",
+  "status": "FAIL",
+  "threshold": "probability >= 0.65",
+  "oos_positive_rr": 0.5096,
+  "oos_signal_count": 471,
+  "oos_total_instances": 4166,
+  "fire_rate": 0.1131,
+  "passed": false
+}

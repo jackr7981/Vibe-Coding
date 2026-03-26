@@ -1,0 +1,169 @@
+{
+  "sweep_filter_combos": [
+    {
+      "conditions": [
+        "time_session==New_York",
+        "trend_direction==down",
+        "vol_range_expansion<median"
+      ],
+      "rate": 0.75,
+      "count": 56,
+      "lift": 1.4827
+    },
+    {
+      "conditions": [
+        "time_bin==ny_mid",
+        "time_hour_utc>=Q75",
+        "trend_direction==down"
+      ],
+      "rate": 0.7358,
+      "count": 53,
+      "lift": 1.4548
+    },
+    {
+      "conditions": [
+        "time_hour_utc>=Q75",
+        "time_session==New_York",
+        "trend_direction==down"
+      ],
+      "rate": 0.7358,
+      "count": 53,
+      "lift": 1.4548
+    },
+    {
+      "conditions": [
+        "time_bin==ny_mid",
+        "trend_direction==down",
+        "vol_realized>=median"
+      ],
+      "rate": 0.7302,
+      "count": 63,
+      "lift": 1.4435
+    },
+    {
+      "conditions": [
+        "trend_direction==down",
+        "time_bin==ny_mid"
+      ],
+      "rate": 0.7248,
+      "count": 109,
+      "lift": 1.4329
+    },
+    {
+      "conditions": [
+        "time_bin==ny_mid",
+        "time_session==New_York",
+        "trend_direction==down"
+      ],
+      "rate": 0.7248,
+      "count": 109,
+      "lift": 1.4329
+    },
+    {
+      "conditions": [
+        "time_bin==ny_mid",
+        "trend_direction==down",
+        "vol_atr_percentile>=median"
+      ],
+      "rate": 0.7238,
+      "count": 105,
+      "lift": 1.431
+    },
+    {
+      "conditions": [
+        "time_bin==ny_mid",
+        "trend_direction==down",
+        "vol_regime==high"
+      ],
+      "rate": 0.7234,
+      "count": 94,
+      "lift": 1.4302
+    },
+    {
+      "conditions": [
+        "trend_direction==up",
+        "vol_atr_percentile>=Q75",
+        "vol_realized>=Q75"
+      ],
+      "rate": 0.7018,
+      "count": 57,
+      "lift": 1.3874
+    },
+    {
+      "conditions": [
+        "time_bin==ny_mid",
+        "trend_direction==down",
+        "vol_atr_zscore>=Q75"
+      ],
+      "rate": 0.7,
+      "count": 60,
+      "lift": 1.3839
+    }
+  ],
+  "sweep_oos_validation": [
+    {
+      "conditions": [
+        "time_session==New_York",
+        "trend_direction==down",
+        "vol_range_expansion<median"
+      ],
+      "oos_rate": 0.7273,
+      "oos_count": 55,
+      "oos_baseline": 0.5067,
+      "oos_lift": 1.4353,
+      "status": "PASS",
+      "train_rate": 0.75
+    },
+    {
+      "conditions": [
+        "time_bin==ny_mid",
+        "time_hour_utc>=Q75",
+        "trend_direction==down"
+      ],
+      "oos_rate": 0.5738,
+      "oos_count": 61,
+      "oos_baseline": 0.5067,
+      "oos_lift": 1.1323,
+      "status": "PASS",
+      "train_rate": 0.7358
+    },
+    {
+      "conditions": [
+        "time_hour_utc>=Q75",
+        "time_session==New_York",
+        "trend_direction==down"
+      ],
+      "oos_rate": 0.5738,
+      "oos_count": 61,
+      "oos_baseline": 0.5067,
+      "oos_lift": 1.1323,
+      "status": "PASS",
+      "train_rate": 0.7358
+    },
+    {
+      "conditions": [
+        "time_bin==ny_mid",
+        "trend_direction==down",
+        "vol_realized>=median"
+      ],
+      "oos_rate": 0.5098,
+      "oos_count": 51,
+      "oos_baseline": 0.5067,
+      "oos_lift": 1.0061,
+      "status": "FAIL",
+      "train_rate": 0.7302
+    },
+    {
+      "conditions": [
+        "trend_direction==down",
+        "time_bin==ny_mid"
+      ],
+      "oos_rate": 0.5397,
+      "oos_count": 126,
+      "oos_baseline": 0.5067,
+      "oos_lift": 1.065,
+      "status": "FAIL",
+      "train_rate": 0.7248
+    }
+  ]
+}

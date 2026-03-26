@@ -1,0 +1,10 @@
+{
+  "concept": "bos_choch_follow_through",
+  "status": "FAIL",
+  "threshold": "probability >= 0.55",
+  "oos_positive_rr": 0.4885,
+  "oos_signal_count": 1216,
+  "oos_total_instances": 5002,
+  "fire_rate": 0.2431,
+  "passed": false
+}

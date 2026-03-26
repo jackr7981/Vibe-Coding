@@ -1,0 +1,12 @@
+{
+  "sample_month": "2024-01",
+  "sample_bars": 2100,
+  "our_total": 478,
+  "our_bullish": 230,
+  "our_bearish": 248,
+  "smc_total": 475,
+  "smc_bullish": 228,
+  "smc_bearish": 247,
+  "count_diff_pct": 0.6,
+  "verdict": "PASS"
+}

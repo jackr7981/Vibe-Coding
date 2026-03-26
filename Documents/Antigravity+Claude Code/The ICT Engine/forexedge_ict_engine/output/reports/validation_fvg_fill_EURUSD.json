@@ -1,0 +1,62 @@
+{
+  "concept": "fvg_fill",
+  "status": "PASS",
+  "threshold": "n_positive >= 20",
+  "oos_accuracy": 0.9371,
+  "oos_signal_count": 2559,
+  "oos_total_instances": 11709,
+  "fire_rate": 0.2185,
+  "year_over_year": {
+    "2024": {
+      "accuracy": 0.9493,
+      "count": 1223
+    },
+    "2025": {
+      "accuracy": 0.9244,
+      "count": 1151
+    },
+    "2026": {
+      "accuracy": 0.9351,
+      "count": 185
+    }
+  },
+  "by_session": {
+    "London": {
+      "accuracy": 0.8773,
+      "count": 277
+    },
+    "New_York": {
+      "accuracy": 0.9016,
+      "count": 193
+    },
+    "Off_Hours": {
+      "accuracy": 0.9524,
+      "count": 1093
+    },
+    "Tokyo": {
+      "accuracy": 0.9438,
+      "count": 996
+    }
+  },
+  "by_confidence": {
+    "HIGH": {
+      "accuracy": 0.9181,
+      "count": 171
+    },
+    "LOW": {
+      "accuracy": 0.85,
+      "count": 20
+    },
+    "MEDIUM": {
+      "accuracy": 0.8667,
+      "count": 30
+    },
+    "VERY_HIGH": {
+      "accuracy": 0.9401,
+      "count": 2338
+    }
+  },
+  "stability": "STABLE",
+  "passed": true,
+  "pair": "EURUSD"
+}

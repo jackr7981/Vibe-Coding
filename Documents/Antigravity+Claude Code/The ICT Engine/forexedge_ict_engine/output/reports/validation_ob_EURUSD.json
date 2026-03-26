@@ -1,0 +1,57 @@
+{
+  "concept": "order_block_fill",
+  "status": "FAIL",
+  "threshold": "n_positive >= 20",
+  "oos_accuracy": 0.8649,
+  "oos_signal_count": 222,
+  "oos_total_instances": 4988,
+  "fire_rate": 0.0445,
+  "year_over_year": {
+    "2024": {
+      "accuracy": 0.8962,
+      "count": 106
+    },
+    "2025": {
+      "accuracy": 0.8351,
+      "count": 97
+    },
+    "2026": {
+      "accuracy": 0.8421,
+      "count": 19
+    }
+  },
+  "by_session": {
+    "London": {
+      "accuracy": 0.7273,
+      "count": 11
+    },
+    "Off_Hours": {
+      "accuracy": 0.8624,
+      "count": 109
+    },
+    "Tokyo": {
+      "accuracy": 0.8812,
+      "count": 101
+    }
+  },
+  "by_confidence": {
+    "HIGH": {
+      "accuracy": 0.8511,
+      "count": 94
+    },
+    "LOW": {
+      "accuracy": 0.6667,
+      "count": 6
+    },
+    "MEDIUM": {
+      "accuracy": 0.8889,
+      "count": 9
+    },
+    "VERY_HIGH": {
+      "accuracy": 0.885,
+      "count": 113
+    }
+  },
+  "stability": "STABLE",
+  "passed": false
+}

@@ -1,0 +1,8 @@
+{
+  "sample_month": "2024-01",
+  "our_total": 181,
+  "smc_total": 16,
+  "count_diff_pct": 91.2,
+  "verdict": "FAIL",
+  "note": "Divergence expected: our OBs tied to BOS/CHOCH events, smc uses volume-based definition"
+}
