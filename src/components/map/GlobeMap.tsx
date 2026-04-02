@@ -28,8 +28,9 @@ export function GlobeMap() {
     pitch: 0,
   });
 
+  // Only render crew that have valid lat/lng
   const crewWithLocation = useMemo(
-    () => filteredCrew.filter((c) => c.current_location),
+    () => filteredCrew.filter((c) => c.lat != null && c.lng != null),
     [filteredCrew]
   );
 
@@ -62,13 +63,12 @@ export function GlobeMap() {
         {crewWithLocation.map((crew) => {
           const isSelected = crew.id === selectedCrewId;
           const color = STATUS_COLORS[crew.current_status];
-          const coords = crew.current_location!.coordinates;
 
           return (
             <Marker
               key={crew.id}
-              longitude={coords[0]}
-              latitude={coords[1]}
+              longitude={crew.lng!}
+              latitude={crew.lat!}
               anchor="center"
               onClick={(e) => {
                 e.originalEvent.stopPropagation();

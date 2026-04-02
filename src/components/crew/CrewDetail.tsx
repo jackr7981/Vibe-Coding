@@ -96,6 +96,11 @@ export function CrewDetail() {
               <div className="text-sm font-medium text-text-primary">
                 {crew.current_location_label || "Unknown"}
               </div>
+              {crew.lat != null && crew.lng != null && (
+                <div className="text-[10px] font-mono text-text-secondary mt-1">
+                  {crew.lat.toFixed(4)}, {crew.lng.toFixed(4)}
+                </div>
+              )}
             </div>
 
             <div className="bg-bg-deepest rounded-lg border border-border-divider p-3">
@@ -106,7 +111,7 @@ export function CrewDetail() {
                 </span>
               </div>
               <div className="text-sm font-medium text-text-primary">
-                {crew.assigned_vessel ? crew.assigned_vessel.name : "Unassigned"}
+                {crew.vessel_name || "Unassigned"}
               </div>
             </div>
 

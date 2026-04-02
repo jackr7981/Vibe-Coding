@@ -39,16 +39,10 @@ export interface Vessel {
   imo_number: string | null;
   vessel_type: string | null;
   flag_state: string | null;
-  current_location: GeoPoint | null;
   current_port: string | null;
   status: string;
   metadata: Record<string, unknown>;
   created_at: string;
-}
-
-export interface GeoPoint {
-  type: "Point";
-  coordinates: [number, number]; // [lng, lat]
 }
 
 export interface CrewMember {
@@ -64,19 +58,18 @@ export interface CrewMember {
   cdc_number: string | null;
   phone: string | null;
   emergency_contact: Record<string, unknown> | null;
-  home_location: GeoPoint | null;
   home_country: string | null;
   home_city: string | null;
   current_status: CrewStatus;
-  current_location: GeoPoint | null;
   current_location_label: string | null;
   assigned_vessel_id: string | null;
   last_status_update: string;
   metadata: Record<string, unknown>;
   created_at: string;
-  // Joined relations
-  assigned_vessel?: Vessel | null;
-  active_itinerary?: TravelItinerary[] | null;
+  // From crew_with_coords view
+  lat: number | null;
+  lng: number | null;
+  vessel_name: string | null;
 }
 
 export interface TravelItinerary {
@@ -95,9 +88,8 @@ export interface TravelItinerary {
   notes: string | null;
   created_by: string | null;
   created_at: string;
-  // Joined
   travel_legs?: TravelLeg[];
-  crew_member?: CrewMember;
+  crew_member?: { full_name: string; rank: string | null };
 }
 
 export interface TravelLeg {
@@ -136,7 +128,6 @@ export interface StatusEvent {
   event_type: EventType;
   previous_status: CrewStatus | null;
   new_status: CrewStatus | null;
-  location: GeoPoint | null;
   location_label: string | null;
   travel_leg_id: string | null;
   reported_by: string | null;
@@ -144,7 +135,6 @@ export interface StatusEvent {
   notes: string | null;
   metadata: Record<string, unknown>;
   created_at: string;
-  // Joined
   crew_members?: { full_name: string; rank: string | null };
 }
 

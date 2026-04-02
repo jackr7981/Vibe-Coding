@@ -8,22 +8,22 @@ export function useCrewRealtime() {
 
   useEffect(() => {
     const fetchCrew = async () => {
-      const { data } = await supabase
-        .from("crew_members")
-        .select(`
-          *,
-          assigned_vessel:vessels(id, name),
-          active_itinerary:travel_itineraries(
-            id, purpose, status,
-            travel_legs(*)
-          )
-        `)
+      // Use the view that extracts lat/lng as plain numbers
+      const { data, error } = await supabase
+        .from("crew_with_coords")
+        .select("id, profile_id, company_id, employee_id, full_name, nationality, rank, department, phone, home_country, home_city, current_status, current_location_label, assigned_vessel_id, last_status_update, created_at, lat, lng, vessel_name")
         .order("full_name");
+
+      if (error) {
+        console.error("Failed to fetch crew:", error.message);
+        return;
+      }
       if (data) setCrew(data as CrewMember[]);
     };
 
     fetchCrew();
 
+    // Realtime listens on the base table, then re-fetches from the view
     const channel = supabase
       .channel("crew-realtime")
       .on(
@@ -33,8 +33,9 @@ export function useCrewRealtime() {
           schema: "public",
           table: "crew_members",
         },
-        (payload) => {
-          updateCrewMember(payload.new as CrewMember);
+        () => {
+          // Re-fetch from view on any crew update
+          fetchCrew();
         }
       )
       .subscribe();
