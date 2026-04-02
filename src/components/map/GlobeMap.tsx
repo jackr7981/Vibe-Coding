@@ -1,8 +1,10 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import MapGL, { Marker, NavigationControl } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { Globe, Map as MapIcon } from "lucide-react";
 import { useCrewStore } from "../../stores/crewStore";
 import { useDashboardStore } from "../../stores/dashboardStore";
+import { cn } from "../../lib/utils";
 
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 
@@ -18,17 +20,22 @@ export function GlobeMap() {
   const { filteredCrew } = useCrewStore();
   const { selectedCrewId, setSelectedCrew } = useDashboardStore();
 
+  const [isGlobe, setIsGlobe] = useState(true);
   const [viewState, setViewState] = useState({
-    longitude: 70,
-    latitude: 20,
-    zoom: 1.5,
-    pitch: 45,
+    longitude: 65,
+    latitude: 15,
+    zoom: 2.2,
+    pitch: 0,
   });
 
   const crewWithLocation = useMemo(
     () => filteredCrew.filter((c) => c.current_location),
     [filteredCrew]
   );
+
+  const toggleProjection = useCallback(() => {
+    setIsGlobe((prev) => !prev);
+  }, []);
 
   return (
     <div className="w-full h-full relative bg-bg-deepest rounded-xl overflow-hidden">
@@ -37,14 +44,18 @@ export function GlobeMap() {
         onMove={(evt) => setViewState(evt.viewState)}
         mapStyle="mapbox://styles/mapbox/dark-v11"
         mapboxAccessToken={MAPBOX_TOKEN}
-        projection={{ name: "globe" }}
-        fog={{
-          range: [0.5, 10],
-          color: "#050B18",
-          "horizon-blend": 0.1,
-          "star-intensity": 0.5,
-          "space-color": "#000000",
-        }}
+        projection={{ name: isGlobe ? "globe" : "mercator" }}
+        fog={
+          isGlobe
+            ? {
+                range: [0.5, 10],
+                color: "#050B18",
+                "horizon-blend": 0.08,
+                "star-intensity": 0.5,
+                "space-color": "#000000",
+              }
+            : undefined
+        }
       >
         <NavigationControl position="bottom-right" showCompass={false} />
 
@@ -94,6 +105,35 @@ export function GlobeMap() {
           );
         })}
       </MapGL>
+
+      {/* Globe / Flat Toggle */}
+      <div className="absolute top-4 right-4 z-10 flex glass-panel rounded-lg overflow-hidden">
+        <button
+          onClick={toggleProjection}
+          className={cn(
+            "flex items-center gap-1.5 px-3 py-2 text-[11px] font-mono uppercase tracking-wider transition-all",
+            isGlobe
+              ? "bg-accent-blue/20 text-accent-blue"
+              : "text-text-muted hover:text-text-secondary"
+          )}
+        >
+          <Globe className="w-3.5 h-3.5" />
+          Globe
+        </button>
+        <div className="w-px bg-border-divider" />
+        <button
+          onClick={toggleProjection}
+          className={cn(
+            "flex items-center gap-1.5 px-3 py-2 text-[11px] font-mono uppercase tracking-wider transition-all",
+            !isGlobe
+              ? "bg-accent-blue/20 text-accent-blue"
+              : "text-text-muted hover:text-text-secondary"
+          )}
+        >
+          <MapIcon className="w-3.5 h-3.5" />
+          Flat
+        </button>
+      </div>
 
       {/* Legend */}
       <div className="absolute bottom-4 left-4 glass-panel p-3 rounded-lg flex flex-col gap-2 z-10">
