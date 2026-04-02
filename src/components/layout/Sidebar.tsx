@@ -9,9 +9,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Anchor,
-  LogOut,
 } from "lucide-react";
-import { useAuthStore } from "../../stores/authStore";
 
 const NAV_ITEMS = [
   { to: "/", icon: LayoutDashboard, label: "Dashboard" },
@@ -22,7 +20,6 @@ const NAV_ITEMS = [
 
 export function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
-  const { signOut } = useAuthStore();
 
   return (
     <aside
@@ -81,19 +78,6 @@ export function Sidebar() {
           </NavLink>
         ))}
       </nav>
-
-      <div className="px-2 pb-2">
-        <button
-          onClick={signOut}
-          className="w-full flex items-center gap-3 px-2.5 py-2.5 rounded-lg text-text-secondary hover:bg-bg-elevated/50 hover:text-text-primary transition-all"
-          title={collapsed ? "Sign Out" : undefined}
-        >
-          <LogOut className="w-5 h-5 shrink-0 text-text-muted" />
-          {!collapsed && (
-            <span className="font-medium text-sm">Sign Out</span>
-          )}
-        </button>
-      </div>
 
       <div className="p-2 border-t border-border-divider">
         <button
