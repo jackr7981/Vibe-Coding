@@ -1,7 +1,11 @@
 import { useState, useMemo, useCallback, useRef } from "react";
 import MapGL, { Source, Layer, NavigationControl } from "react-map-gl/mapbox";
 import type { MapRef, MapMouseEvent } from "react-map-gl/mapbox";
-import type { CircleLayerSpecification, SymbolLayerSpecification } from "mapbox-gl";
+import type {
+  CircleLayerSpecification,
+  SymbolLayerSpecification,
+  LineLayerSpecification,
+} from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { Globe, Map as MapIcon } from "lucide-react";
 import { useCrewStore } from "../../stores/crewStore";
@@ -18,7 +22,58 @@ const STATUS_COLORS: Record<string, string> = {
   at_port: "#A78BFA",
 };
 
-// Crew dots layer — rendered on GPU, handles thousands of points
+// Known airport coords for generating arcs (home city -> airport)
+const CITY_COORDS: Record<string, [number, number]> = {
+  Bangladesh: [90.41, 23.81],
+  India: [72.88, 19.08],
+  Philippines: [120.98, 14.6],
+  Indonesia: [106.85, -6.21],
+  Ukraine: [30.74, 46.48],
+};
+
+
+/**
+ * Generate intermediate points along a great circle arc.
+ * This creates the curved flight path effect on the globe.
+ */
+function greatCircleArc(
+  start: [number, number],
+  end: [number, number],
+  numPoints = 50
+): [number, number][] {
+  const toRad = (d: number) => (d * Math.PI) / 180;
+  const toDeg = (r: number) => (r * 180) / Math.PI;
+
+  const lat1 = toRad(start[1]);
+  const lon1 = toRad(start[0]);
+  const lat2 = toRad(end[1]);
+  const lon2 = toRad(end[0]);
+
+  const d =
+    2 *
+    Math.asin(
+      Math.sqrt(
+        Math.pow(Math.sin((lat1 - lat2) / 2), 2) +
+          Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin((lon1 - lon2) / 2), 2)
+      )
+    );
+
+  const points: [number, number][] = [];
+  for (let i = 0; i <= numPoints; i++) {
+    const f = i / numPoints;
+    const A = Math.sin((1 - f) * d) / Math.sin(d);
+    const B = Math.sin(f * d) / Math.sin(d);
+    const x = A * Math.cos(lat1) * Math.cos(lon1) + B * Math.cos(lat2) * Math.cos(lon2);
+    const y = A * Math.cos(lat1) * Math.sin(lon1) + B * Math.cos(lat2) * Math.sin(lon2);
+    const z = A * Math.sin(lat1) + B * Math.sin(lat2);
+    const lat = Math.atan2(z, Math.sqrt(x * x + y * y));
+    const lon = Math.atan2(y, x);
+    points.push([toDeg(lon), toDeg(lat)]);
+  }
+  return points;
+}
+
+// Crew dots layer
 const crewDotsLayer: CircleLayerSpecification = {
   id: "crew-dots",
   type: "circle",
@@ -74,8 +129,32 @@ const clusterCountLayer: SymbolLayerSpecification = {
     "text-field": "{point_count_abbreviated}",
     "text-size": 13,
   },
+  paint: { "text-color": "#ffffff" },
+};
+
+// Flight arc line style
+const flightArcLayer: LineLayerSpecification = {
+  id: "flight-arcs",
+  type: "line",
+  source: "flight-arcs",
   paint: {
-    "text-color": "#ffffff",
+    "line-color": "#FBBF24",
+    "line-width": 1.5,
+    "line-opacity": 0.6,
+    "line-dasharray": [2, 3],
+  },
+};
+
+// Flight arc glow
+const flightArcGlowLayer: LineLayerSpecification = {
+  id: "flight-arcs-glow",
+  type: "line",
+  source: "flight-arcs",
+  paint: {
+    "line-color": "#FBBF24",
+    "line-width": 4,
+    "line-opacity": 0.15,
+    "line-blur": 3,
   },
 };
 
@@ -96,9 +175,10 @@ export function GlobeMap() {
     y: number;
     name: string;
     color: string;
+    status: string;
   } | null>(null);
 
-  // Build GeoJSON from crew data — rendered via Source/Layer (GPU), not Markers (DOM)
+  // Build crew positions GeoJSON
   const geojson = useMemo(() => {
     const features = filteredCrew
       .filter((c) => c.lat != null && c.lng != null)
@@ -117,6 +197,44 @@ export function GlobeMap() {
           vessel: c.vessel_name || "",
         },
       }));
+    return { type: "FeatureCollection" as const, features };
+  }, [filteredCrew]);
+
+  // Build flight arcs for in_transit and at_airport crew
+  const flightArcs = useMemo(() => {
+    const features = filteredCrew
+      .filter(
+        (c) =>
+          (c.current_status === "in_transit" || c.current_status === "at_airport") &&
+          c.lat != null &&
+          c.lng != null &&
+          c.nationality
+      )
+      .map((c) => {
+        // Origin: crew's home country capital airport
+        const origin = CITY_COORDS[c.nationality!] || CITY_COORDS["Bangladesh"];
+        const destination: [number, number] = [c.lng!, c.lat!];
+
+        // Only draw if origin != destination (more than 2 degrees apart)
+        const dist = Math.abs(origin[0] - destination[0]) + Math.abs(origin[1] - destination[1]);
+        if (dist < 2) return null;
+
+        const arcPoints = greatCircleArc(origin, destination, 40);
+
+        return {
+          type: "Feature" as const,
+          geometry: {
+            type: "LineString" as const,
+            coordinates: arcPoints,
+          },
+          properties: {
+            id: c.id,
+            name: c.full_name,
+            status: c.current_status,
+          },
+        };
+      })
+      .filter(Boolean);
 
     return { type: "FeatureCollection" as const, features };
   }, [filteredCrew]);
@@ -141,6 +259,7 @@ export function GlobeMap() {
         y: e.point.y,
         name: feature.properties.name as string,
         color: feature.properties.color as string,
+        status: feature.properties.status as string,
       });
     }
   }, []);
@@ -178,6 +297,13 @@ export function GlobeMap() {
       >
         <NavigationControl position="bottom-right" showCompass={false} />
 
+        {/* Flight arcs — dashed yellow lines from origin to current location */}
+        <Source id="flight-arcs" type="geojson" data={flightArcs as any}>
+          <Layer {...flightArcGlowLayer} />
+          <Layer {...flightArcLayer} />
+        </Source>
+
+        {/* Crew position dots */}
         <Source
           id="crew-positions"
           type="geojson"
@@ -198,12 +324,18 @@ export function GlobeMap() {
           className="absolute z-50 pointer-events-none"
           style={{ left: hoverInfo.x + 12, top: hoverInfo.y - 12 }}
         >
-          <div className="glass-panel px-2.5 py-1.5 rounded text-xs font-medium flex items-center gap-2">
-            <span className="text-text-primary">{hoverInfo.name}</span>
+          <div className="glass-panel px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2.5 shadow-lg">
             <span
-              className="w-1.5 h-1.5 rounded-full"
-              style={{ backgroundColor: hoverInfo.color }}
+              className="w-2 h-2 rounded-full shrink-0"
+              style={{
+                backgroundColor: hoverInfo.color,
+                boxShadow: `0 0 6px ${hoverInfo.color}`,
+              }}
             />
+            <span className="text-white">{hoverInfo.name}</span>
+            <span className="text-[10px] font-mono text-text-muted uppercase">
+              {hoverInfo.status.replace("_", " ")}
+            </span>
           </div>
         </div>
       )}
@@ -250,6 +382,12 @@ export function GlobeMap() {
             </span>
           </div>
         ))}
+        <div className="flex items-center gap-2 mt-1 pt-1 border-t border-border-divider">
+          <div className="w-5 h-px bg-[#FBBF24]" style={{ backgroundImage: "repeating-linear-gradient(90deg, #FBBF24 0, #FBBF24 4px, transparent 4px, transparent 8px)" }} />
+          <span className="text-[10px] font-mono uppercase tracking-wider text-text-secondary">
+            Flight Route
+          </span>
+        </div>
       </div>
     </div>
   );
