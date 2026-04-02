@@ -66,6 +66,10 @@ export interface CrewMember {
   last_status_update: string;
   metadata: Record<string, unknown>;
   created_at: string;
+  // Contract
+  contract_start_date: string | null;
+  contract_end_date: string | null;
+  contract_duration_months: number | null;
   // From crew_with_coords view
   lat: number | null;
   lng: number | null;

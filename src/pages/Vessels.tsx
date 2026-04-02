@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { Ship, Plus, MapPin } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Header } from "../components/layout/Header";
 import type { Vessel } from "../lib/types";
 
 export function Vessels() {
   const [vessels, setVessels] = useState<Vessel[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +41,8 @@ export function Vessels() {
             vessels.map((v) => (
               <div
                 key={v.id}
-                className="glass-panel rounded-xl p-4 hover:bg-bg-elevated/80 transition-colors"
+                onClick={() => navigate(`/vessels/${v.id}`)}
+                className="glass-panel rounded-xl p-4 hover:bg-bg-elevated/80 transition-colors cursor-pointer"
               >
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 bg-accent-blue/20 rounded-lg flex items-center justify-center">

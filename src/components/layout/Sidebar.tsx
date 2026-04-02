@@ -6,6 +6,9 @@ import {
   Users,
   Ship,
   Map,
+  RefreshCw,
+  FileText,
+  BarChart3,
   ChevronLeft,
   ChevronRight,
   Anchor,
@@ -16,6 +19,9 @@ const NAV_ITEMS = [
   { to: "/crew", icon: Users, label: "Crew" },
   { to: "/vessels", icon: Ship, label: "Vessels" },
   { to: "/itineraries", icon: Map, label: "Itineraries" },
+  { to: "/crew-changes", icon: RefreshCw, label: "Crew Changes" },
+  { to: "/documents", icon: FileText, label: "Documents" },
+  { to: "/reports", icon: BarChart3, label: "Reports" },
 ];
 
 export function Sidebar() {
