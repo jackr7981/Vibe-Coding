@@ -121,8 +121,8 @@ export function AiChat() {
 
   return (
     <div
-      className="flex flex-col rounded-xl border border-border-divider overflow-hidden shrink-0"
-      style={{ height: "230px", background: "#070d1a" }}
+      className="flex flex-col flex-1 rounded-xl border border-border-divider overflow-hidden min-h-0"
+      style={{ background: "#070d1a" }}
     >
       {/* Header */}
       <div

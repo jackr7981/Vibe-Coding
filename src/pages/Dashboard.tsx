@@ -4,7 +4,6 @@ import { useDashboardStats } from "../hooks/useDashboardStats";
 import { Header } from "../components/layout/Header";
 import { GlobeMap } from "../components/map/GlobeMap";
 import { StatCards } from "../components/stats/StatCards";
-import { CrewList } from "../components/crew/CrewList";
 import { CrewDetail } from "../components/crew/CrewDetail";
 import { AiChat } from "../components/crew/AiChat";
 import { AlertBanner } from "../components/alerts/AlertBanner";
@@ -36,10 +35,9 @@ export function Dashboard() {
             </AnimatePresence>
           </div>
 
-          {/* Right sidebar: AI chat + crew list */}
-          <div className="w-72 flex flex-col gap-3 shrink-0 overflow-hidden">
+          {/* Right sidebar: AI assistant — full height */}
+          <div className="w-72 flex flex-col shrink-0 overflow-hidden">
             <AiChat />
-            <CrewList />
           </div>
         </div>
       </main>

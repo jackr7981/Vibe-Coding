@@ -26,39 +26,58 @@
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
-/* ── Light mode overrides ── */
+/* ── Claude day mode palette ── */
+/*    Warm cream/parchment tones, terracotta accent — matches Claude.ai aesthetic */
 [data-theme="light"] {
-  --color-bg-deepest: #f0f4fb;
-  --color-bg-surface: #ffffff;
-  --color-bg-elevated: #e8edf8;
-  --color-border-divider: #c8d4e8;
-  --color-text-primary: #0f1a2e;
-  --color-text-secondary: #3a4f6a;
-  --color-text-muted: #7a8ba8;
-  --color-accent-blue: #1a56db;
-  --color-accent-blue-glow: rgba(26, 86, 219, 0.2);
-  --color-danger: #dc2626;
-  --color-success: #16a34a;
+  --color-bg-deepest: #f2efe8;
+  --color-bg-surface: #faf8f3;
+  --color-bg-elevated: #edeae1;
+  --color-border-divider: #d6d0c4;
+  --color-text-primary: #1a1813;
+  --color-text-secondary: #6b6760;
+  --color-text-muted: #a8a49d;
+  /* Claude's terracotta/copper signature accent */
+  --color-accent-blue: #c96a2e;
+  --color-accent-blue-glow: rgba(201, 106, 46, 0.18);
+  --color-danger: #c0392b;
+  --color-success: #2e7d32;
+}
+
+[data-theme="light"] body {
+  background-color: var(--color-bg-deepest);
 }
 
 [data-theme="light"] .glass-panel {
-  background: rgba(255, 255, 255, 0.75);
-  border-color: #c8d4e8;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 24px rgba(0,0,0,0.08);
+  background: rgba(250, 248, 243, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-color: #d6d0c4;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 4px 24px rgba(0, 0, 0, 0.07);
 }
 
 [data-theme="light"] .glass-button {
-  background: rgba(240, 244, 251, 0.8);
-  border-color: #c8d4e8;
+  background: rgba(237, 234, 225, 0.7);
+  border-color: #d6d0c4;
+}
+
+[data-theme="light"] .glass-button:hover {
+  background: rgba(201, 106, 46, 0.1);
+  border-color: rgba(201, 106, 46, 0.35);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: #c8c1b5;
 }
 
 [data-theme="light"] .mapboxgl-ctrl-group {
-  background: rgba(255, 255, 255, 0.9) !important;
-  border-color: #c8d4e8 !important;
+  background: rgba(250, 248, 243, 0.9) !important;
+  border-color: #d6d0c4 !important;
 }
 
 [data-theme="light"] .mapboxgl-ctrl-icon {
-  filter: none !important;
+  filter: invert(0.85) sepia(0.1) !important;
 }
 
 body {
