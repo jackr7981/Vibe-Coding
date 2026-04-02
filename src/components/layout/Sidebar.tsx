@@ -1,59 +1,110 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { cn } from "../../lib/utils";
 import {
   LayoutDashboard,
   Users,
   Ship,
-  Route,
+  Map,
+  ChevronLeft,
+  ChevronRight,
+  Anchor,
   LogOut,
 } from "lucide-react";
 import { useAuthStore } from "../../stores/authStore";
 
-const navItems = [
+const NAV_ITEMS = [
   { to: "/", icon: LayoutDashboard, label: "Dashboard" },
   { to: "/crew", icon: Users, label: "Crew" },
   { to: "/vessels", icon: Ship, label: "Vessels" },
-  { to: "/itineraries", icon: Route, label: "Itineraries" },
+  { to: "/itineraries", icon: Map, label: "Itineraries" },
 ];
 
 export function Sidebar() {
-  const { signOut, profile } = useAuthStore();
+  const [collapsed, setCollapsed] = useState(false);
+  const { signOut } = useAuthStore();
 
   return (
-    <aside className="w-64 bg-gray-900 border-r border-gray-800 flex flex-col">
-      <div className="p-4 border-b border-gray-800">
-        <h1 className="text-xl font-bold text-white tracking-tight">CrewTracker</h1>
-        <p className="text-xs text-gray-500 mt-1">Crew Management Platform</p>
+    <aside
+      className={cn(
+        "h-full bg-bg-surface border-r border-border-divider flex flex-col transition-all duration-300 z-20 relative",
+        collapsed ? "w-16" : "w-60"
+      )}
+    >
+      <div className="h-16 flex items-center px-4 border-b border-border-divider shrink-0">
+        <div className="flex items-center gap-3 text-accent-blue">
+          <Anchor className="w-6 h-6 shrink-0" />
+          {!collapsed && (
+            <span className="font-display font-bold text-lg tracking-wide text-text-primary whitespace-nowrap">
+              CrewTracker
+            </span>
+          )}
+        </div>
       </div>
 
-      <nav className="flex-1 p-3 space-y-1">
-        {navItems.map(({ to, icon: Icon, label }) => (
+      <nav className="flex-1 py-4 flex flex-col gap-1 px-2 overflow-y-auto overflow-x-hidden">
+        {NAV_ITEMS.map((item) => (
           <NavLink
-            key={to}
-            to={to}
+            key={item.to}
+            to={item.to}
+            end={item.to === "/"}
             className={({ isActive }) =>
-              `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
+              cn(
+                "flex items-center gap-3 px-2.5 py-2.5 rounded-lg transition-all duration-200 group relative",
                 isActive
-                  ? "bg-blue-600/20 text-blue-400"
-                  : "text-gray-400 hover:bg-gray-800 hover:text-white"
-              }`
+                  ? "bg-bg-elevated text-accent-blue"
+                  : "text-text-secondary hover:bg-bg-elevated/50 hover:text-text-primary"
+              )
             }
+            title={collapsed ? item.label : undefined}
           >
-            <Icon size={18} />
-            {label}
+            {({ isActive }) => (
+              <>
+                {isActive && (
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-accent-blue rounded-r-full shadow-[0_0_8px_rgba(43,108,255,0.6)]" />
+                )}
+                <item.icon
+                  className={cn(
+                    "w-5 h-5 shrink-0",
+                    isActive
+                      ? "text-accent-blue"
+                      : "text-text-muted group-hover:text-text-secondary"
+                  )}
+                />
+                {!collapsed && (
+                  <span className="font-medium text-sm whitespace-nowrap">
+                    {item.label}
+                  </span>
+                )}
+              </>
+            )}
           </NavLink>
         ))}
       </nav>
 
-      <div className="p-3 border-t border-gray-800">
-        <div className="px-3 py-2 text-xs text-gray-500 truncate">
-          {profile?.full_name}
-        </div>
+      <div className="px-2 pb-2">
         <button
           onClick={signOut}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-400 hover:bg-gray-800 hover:text-white w-full transition-colors"
+          className="w-full flex items-center gap-3 px-2.5 py-2.5 rounded-lg text-text-secondary hover:bg-bg-elevated/50 hover:text-text-primary transition-all"
+          title={collapsed ? "Sign Out" : undefined}
         >
-          <LogOut size={18} />
-          Sign Out
+          <LogOut className="w-5 h-5 shrink-0 text-text-muted" />
+          {!collapsed && (
+            <span className="font-medium text-sm">Sign Out</span>
+          )}
+        </button>
+      </div>
+
+      <div className="p-2 border-t border-border-divider">
+        <button
+          onClick={() => setCollapsed(!collapsed)}
+          className="w-full flex items-center justify-center p-2 rounded-lg text-text-muted hover:bg-bg-elevated hover:text-text-primary transition-colors"
+        >
+          {collapsed ? (
+            <ChevronRight className="w-5 h-5" />
+          ) : (
+            <ChevronLeft className="w-5 h-5" />
+          )}
         </button>
       </div>
     </aside>

@@ -1,46 +1,50 @@
+import { useState } from "react";
+import { AnimatePresence } from "motion/react";
 import { useCrewRealtime } from "../hooks/useCrewRealtime";
 import { useDashboardStats } from "../hooks/useDashboardStats";
+import { Header } from "../components/layout/Header";
 import { GlobeMap } from "../components/map/GlobeMap";
 import { StatCards } from "../components/stats/StatCards";
-import { VesselBreakdown } from "../components/stats/VesselBreakdown";
 import { CrewList } from "../components/crew/CrewList";
 import { CrewDetail } from "../components/crew/CrewDetail";
 import { ActivityFeed } from "../components/feed/ActivityFeed";
+import { TicketUploadModal } from "../components/tickets/TicketUpload";
 import { useDashboardStore } from "../stores/dashboardStore";
 
 export function Dashboard() {
   useCrewRealtime();
   useDashboardStats();
 
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const selectedCrewId = useDashboardStore((s) => s.selectedCrewId);
 
   return (
-    <div className="h-full flex flex-col">
-      {/* Stats bar */}
-      <div className="p-4 pb-0">
+    <>
+      <Header onUploadClick={() => setIsUploadModalOpen(true)} />
+
+      <main className="flex-1 overflow-hidden p-4 flex flex-col gap-4">
         <StatCards />
-      </div>
 
-      {/* Main content: Map + sidebar */}
-      <div className="flex-1 flex p-4 gap-4 min-h-0">
-        {/* Globe map */}
-        <div className="flex-1 bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
-          <GlobeMap />
-        </div>
+        <div className="flex-1 flex gap-4 overflow-hidden">
+          <div className="flex-1 glass-panel rounded-xl overflow-hidden relative shadow-2xl">
+            <GlobeMap />
 
-        {/* Right sidebar */}
-        <div className="w-80 flex flex-col gap-4 overflow-y-auto">
-          {selectedCrewId ? (
-            <CrewDetail />
-          ) : (
-            <>
-              <CrewList />
-              <VesselBreakdown />
-              <ActivityFeed />
-            </>
-          )}
+            <AnimatePresence>
+              {selectedCrewId && <CrewDetail />}
+            </AnimatePresence>
+          </div>
+
+          <div className="w-80 flex flex-col gap-4 shrink-0 overflow-hidden">
+            <CrewList />
+            <ActivityFeed />
+          </div>
         </div>
-      </div>
-    </div>
+      </main>
+
+      <TicketUploadModal
+        isOpen={isUploadModalOpen}
+        onClose={() => setIsUploadModalOpen(false)}
+      />
+    </>
   );
 }

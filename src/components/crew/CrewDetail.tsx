@@ -1,8 +1,16 @@
+import { motion } from "motion/react";
 import { X, MapPin, Ship, Phone, Flag } from "lucide-react";
 import { useCrewStore } from "../../stores/crewStore";
 import { useDashboardStore } from "../../stores/dashboardStore";
-import { STATUS_COLORS, STATUS_LABELS } from "../../lib/mapbox";
 import { CrewTimeline } from "./CrewTimeline";
+
+const STATUS_COLORS: Record<string, string> = {
+  home: "#34D399",
+  on_board: "#60A5FA",
+  in_transit: "#FBBF24",
+  at_airport: "#F97316",
+  at_port: "#A78BFA",
+};
 
 export function CrewDetail() {
   const { selectedCrewId, setSelectedCrew } = useDashboardStore();
@@ -10,57 +18,128 @@ export function CrewDetail() {
 
   if (!crew) return null;
 
+  const color = STATUS_COLORS[crew.current_status];
+
   return (
-    <div className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
-      <div className="p-4 border-b border-gray-800 flex items-center justify-between">
-        <h3 className="text-sm font-medium text-white">{crew.full_name}</h3>
-        <button
-          onClick={() => setSelectedCrew(null)}
-          className="text-gray-500 hover:text-white"
-        >
-          <X size={16} />
-        </button>
-      </div>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      className="absolute bottom-4 left-4 right-4 glass-panel rounded-xl p-4 z-20 shadow-2xl border-t border-border-divider/50"
+      style={{ backdropFilter: "blur(24px)" }}
+    >
+      <button
+        onClick={() => setSelectedCrew(null)}
+        className="absolute top-3 right-3 p-1 text-text-muted hover:text-text-primary transition-colors"
+      >
+        <X className="w-4 h-4" />
+      </button>
 
-      <div className="p-4 space-y-3">
-        <div className="flex items-center gap-2">
-          <span
-            className="w-3 h-3 rounded-full"
-            style={{ backgroundColor: STATUS_COLORS[crew.current_status] }}
-          />
-          <span className="text-sm text-white">
-            {STATUS_LABELS[crew.current_status]}
-          </span>
+      <div className="flex gap-6">
+        <div className="w-1/3 border-r border-border-divider pr-6">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 rounded-full bg-bg-elevated border border-border-divider flex items-center justify-center text-lg font-display font-bold text-text-primary">
+              {crew.full_name
+                .split(" ")
+                .map((n) => n[0])
+                .join("")}
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-text-primary leading-tight">
+                {crew.full_name}
+              </h2>
+              <div className="text-xs text-text-secondary">
+                {crew.rank} {crew.nationality && `\u00b7 ${crew.nationality}`}
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <div>
+              <div className="text-[10px] font-mono text-text-muted uppercase tracking-wider mb-1">
+                Employee ID
+              </div>
+              <div className="text-sm font-mono text-text-primary">
+                {crew.employee_id}
+              </div>
+            </div>
+
+            <div>
+              <div className="text-[10px] font-mono text-text-muted uppercase tracking-wider mb-1">
+                Current Status
+              </div>
+              <div className="inline-flex items-center gap-2 px-2 py-1 rounded bg-bg-elevated border border-border-divider">
+                <div
+                  className="w-2 h-2 rounded-full"
+                  style={{ backgroundColor: color, boxShadow: `0 0 8px ${color}` }}
+                />
+                <span
+                  className="text-xs font-mono uppercase tracking-wider"
+                  style={{ color }}
+                >
+                  {crew.current_status.replace("_", " ")}
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 text-xs">
-          <div className="flex items-center gap-2 text-gray-400">
-            <Flag size={12} />
-            <span>{crew.nationality || "N/A"}</span>
+        <div className="flex-1">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="bg-bg-deepest rounded-lg border border-border-divider p-3">
+              <div className="flex items-center gap-2 mb-2">
+                <MapPin className="w-4 h-4 text-text-muted" />
+                <span className="text-[10px] font-mono text-text-muted uppercase tracking-wider">
+                  Location
+                </span>
+              </div>
+              <div className="text-sm font-medium text-text-primary">
+                {crew.current_location_label || "Unknown"}
+              </div>
+            </div>
+
+            <div className="bg-bg-deepest rounded-lg border border-border-divider p-3">
+              <div className="flex items-center gap-2 mb-2">
+                <Ship className="w-4 h-4 text-text-muted" />
+                <span className="text-[10px] font-mono text-text-muted uppercase tracking-wider">
+                  Assignment
+                </span>
+              </div>
+              <div className="text-sm font-medium text-text-primary">
+                {crew.assigned_vessel ? crew.assigned_vessel.name : "Unassigned"}
+              </div>
+            </div>
+
+            <div className="bg-bg-deepest rounded-lg border border-border-divider p-3">
+              <div className="flex items-center gap-2 mb-2">
+                <Flag className="w-4 h-4 text-text-muted" />
+                <span className="text-[10px] font-mono text-text-muted uppercase tracking-wider">
+                  Nationality
+                </span>
+              </div>
+              <div className="text-sm font-medium text-text-primary">
+                {crew.nationality || "N/A"}
+              </div>
+            </div>
+
+            <div className="bg-bg-deepest rounded-lg border border-border-divider p-3">
+              <div className="flex items-center gap-2 mb-2">
+                <Phone className="w-4 h-4 text-text-muted" />
+                <span className="text-[10px] font-mono text-text-muted uppercase tracking-wider">
+                  Phone
+                </span>
+              </div>
+              <div className="text-sm font-medium text-text-primary">
+                {crew.phone || "N/A"}
+              </div>
+            </div>
           </div>
-          <div className="flex items-center gap-2 text-gray-400">
-            <Ship size={12} />
-            <span>{crew.rank || "N/A"}</span>
-          </div>
-          <div className="flex items-center gap-2 text-gray-400">
-            <MapPin size={12} />
-            <span>{crew.current_location_label || "Unknown"}</span>
-          </div>
-          <div className="flex items-center gap-2 text-gray-400">
-            <Phone size={12} />
-            <span>{crew.phone || "N/A"}</span>
+
+          <div className="mt-3">
+            <CrewTimeline crewId={crew.id} />
           </div>
         </div>
-
-        {crew.assigned_vessel && (
-          <div className="bg-gray-800 rounded-lg p-3 text-xs">
-            <span className="text-gray-500">Assigned to</span>
-            <span className="text-blue-400 ml-2">{crew.assigned_vessel.name}</span>
-          </div>
-        )}
       </div>
-
-      <CrewTimeline crewId={crew.id} />
-    </div>
+    </motion.div>
   );
 }

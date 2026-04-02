@@ -1,19 +1,12 @@
 import { Outlet } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
-import { Header } from "./Header";
-import { useDashboardStore } from "../../stores/dashboardStore";
 
 export function DashboardLayout() {
-  const { sidebarOpen } = useDashboardStore();
-
   return (
-    <div className="h-screen flex bg-gray-950 text-white overflow-hidden">
-      {sidebarOpen && <Sidebar />}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <Header />
-        <main className="flex-1 overflow-auto">
-          <Outlet />
-        </main>
+    <div className="flex h-screen w-full overflow-hidden bg-bg-deepest bg-noise text-text-primary font-sans selection:bg-accent-blue/30">
+      <Sidebar />
+      <div className="flex flex-col flex-1 overflow-hidden relative z-10">
+        <Outlet />
       </div>
     </div>
   );
