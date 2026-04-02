@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
-import { Route, Plus, Plane } from "lucide-react";
+import { Route, Plus, Plane, Upload } from "lucide-react";
 import { format } from "date-fns";
 import { Header } from "../components/layout/Header";
+import { TicketUploadModal } from "../components/tickets/TicketUpload";
 import type { TravelItinerary } from "../lib/types";
 
 const STATUS_BADGE: Record<string, string> = {
@@ -15,6 +16,7 @@ const STATUS_BADGE: Record<string, string> = {
 export function Itineraries() {
   const [itineraries, setItineraries] = useState<TravelItinerary[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isUploadOpen, setIsUploadOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,10 +37,19 @@ export function Itineraries() {
       <div className="p-6 overflow-auto flex-1">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-display font-bold text-text-primary">Travel Itineraries</h2>
-          <button className="flex items-center gap-2 bg-accent-blue hover:bg-accent-blue/90 text-white px-4 py-2 rounded-lg text-sm shadow-[0_0_15px_rgba(43,108,255,0.4)]">
-            <Plus size={16} />
-            New Itinerary
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setIsUploadOpen(true)}
+              className="flex items-center gap-2 glass-button px-4 py-2 rounded-lg text-sm text-text-primary"
+            >
+              <Upload size={14} className="text-accent-blue" />
+              Upload Tickets
+            </button>
+            <button className="flex items-center gap-2 bg-accent-blue hover:bg-accent-blue/90 text-white px-4 py-2 rounded-lg text-sm shadow-[0_0_15px_rgba(43,108,255,0.4)]">
+              <Plus size={16} />
+              New Itinerary
+            </button>
+          </div>
         </div>
 
         <div className="space-y-3">
@@ -109,6 +120,10 @@ export function Itineraries() {
           )}
         </div>
       </div>
+      <TicketUploadModal
+        isOpen={isUploadOpen}
+        onClose={() => setIsUploadOpen(false)}
+      />
     </>
   );
 }

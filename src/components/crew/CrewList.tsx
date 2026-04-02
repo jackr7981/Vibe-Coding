@@ -1,4 +1,3 @@
-import { Search } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { useCrewStore } from "../../stores/crewStore";
 import { useDashboardStore } from "../../stores/dashboardStore";
@@ -20,25 +19,21 @@ const STATUS_LABEL: Record<string, string> = {
 };
 
 export function CrewList() {
-  const { filteredCrew, setFilters } = useCrewStore();
+  const { filteredCrew } = useCrewStore();
   const { selectedCrewId, setSelectedCrew } = useDashboardStore();
 
   return (
-    <div className="flex-1 rounded-xl flex flex-col overflow-hidden border border-border-divider"
+    <div className="flex-1 rounded-xl flex flex-col overflow-hidden border border-border-divider min-h-0"
       style={{ background: "#0b1425" }}
     >
-      {/* Search */}
-      <div className="p-3 border-b border-border-divider shrink-0">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: "#8899bb" }} />
-          <input
-            type="text"
-            placeholder="Search crew..."
-            onChange={(e) => setFilters({ search: e.target.value })}
-            className="w-full rounded-lg pl-10 pr-3 py-2.5 text-sm border border-border-divider focus:outline-none focus:border-accent-blue transition-colors"
-            style={{ background: "#070d1a", color: "#e8edf7", caretColor: "#60a5fa" }}
-          />
-        </div>
+      {/* Header */}
+      <div className="px-3 py-2 border-b border-border-divider shrink-0 flex items-center justify-between">
+        <span className="text-[10px] font-mono font-semibold uppercase tracking-wider" style={{ color: "#8899bb" }}>
+          Crew Roster
+        </span>
+        <span className="text-[9px] font-mono" style={{ color: "#3e4f6a" }}>
+          {filteredCrew.length}
+        </span>
       </div>
 
       {/* Crew items */}

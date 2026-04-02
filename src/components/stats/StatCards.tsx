@@ -45,7 +45,7 @@ function StatCard({
       transition={{ duration: 0.5, delay, ease: "easeOut" }}
       onClick={onClick}
       className={cn(
-        "relative w-full text-left p-5 rounded-xl border transition-all duration-300 overflow-hidden group",
+        "relative w-full text-left p-3 rounded-xl border transition-all duration-300 overflow-hidden group",
         active
           ? "bg-bg-elevated border-opacity-50"
           : "glass-panel hover:bg-bg-elevated/80"
@@ -63,7 +63,7 @@ function StatCard({
         />
       )}
 
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-between mb-1.5">
         <div className="flex items-center gap-2">
           {!isTotal && statusColor && (
             <div
@@ -94,12 +94,12 @@ function StatCard({
       </div>
 
       <div className="flex items-baseline gap-3">
-        <motion.span className="font-display text-[42px] font-bold leading-none tracking-tight text-text-primary">
+        <motion.span className="font-display text-[26px] font-bold leading-none tracking-tight text-text-primary">
           {displayValue}
         </motion.span>
       </div>
 
-      <div className="mt-2 text-xs font-mono text-text-muted">
+      <div className="mt-1 text-[10px] font-mono text-text-muted">
         {isTotal ? "Total active crew" : `${percentage}% of fleet`}
       </div>
     </motion.button>

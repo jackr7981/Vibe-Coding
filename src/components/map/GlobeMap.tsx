@@ -3,9 +3,9 @@ import MapGL, { Source, Layer, Marker, NavigationControl } from "react-map-gl/ma
 import type { MapRef, MapMouseEvent } from "react-map-gl/mapbox";
 import type {
   CircleLayerSpecification,
-  SymbolLayerSpecification,
   LineLayerSpecification,
 } from "mapbox-gl";
+import { ActivityFeedOverlay } from "../feed/ActivityFeedOverlay";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { Globe, Map as MapIcon } from "lucide-react";
 import { useCrewStore } from "../../stores/crewStore";
@@ -48,7 +48,6 @@ function greatCircleArc(start: [number, number], end: [number, number], n = 60):
 // --- Crew layers ---
 const crewDotsLayer: CircleLayerSpecification = {
   id: "crew-dots", type: "circle", source: "crew-positions",
-  filter: ["!", ["has", "point_count"]],
   paint: {
     "circle-color": ["get", "color"],
     "circle-radius": ["case", ["boolean", ["feature-state", "selected"], false], 8, 5],
@@ -57,21 +56,6 @@ const crewDotsLayer: CircleLayerSpecification = {
     "circle-stroke-color": ["case", ["boolean", ["feature-state", "selected"], false], "#ffffff", ["get", "color"]],
     "circle-stroke-opacity": 0.5,
   },
-};
-const clusterLayer: CircleLayerSpecification = {
-  id: "crew-clusters", type: "circle", source: "crew-positions",
-  filter: ["has", "point_count"],
-  paint: {
-    "circle-color": "#2b6cff",
-    "circle-radius": ["step", ["get", "point_count"], 18, 10, 24, 50, 32],
-    "circle-opacity": 0.7, "circle-stroke-width": 2, "circle-stroke-color": "#60A5FA",
-  },
-};
-const clusterCountLayer: SymbolLayerSpecification = {
-  id: "cluster-count", type: "symbol", source: "crew-positions",
-  filter: ["has", "point_count"],
-  layout: { "text-field": "{point_count_abbreviated}", "text-size": 13 },
-  paint: { "text-color": "#ffffff" },
 };
 
 // --- Flight arc layers (multi-layered futuristic effect) ---
@@ -242,10 +226,8 @@ export function GlobeMap() {
           </Marker>
         )}
 
-        {/* Crew positions */}
-        <Source id="crew-positions" type="geojson" data={geojson} cluster clusterMaxZoom={8} clusterRadius={40}>
-          <Layer {...clusterLayer} />
-          <Layer {...clusterCountLayer} />
+        {/* Crew positions — no clustering, individual dots at all zoom levels */}
+        <Source id="crew-positions" type="geojson" data={geojson}>
           <Layer {...crewDotsLayer} />
         </Source>
       </MapGL>
@@ -299,6 +281,9 @@ export function GlobeMap() {
           <MapIcon className="w-3.5 h-3.5" />Flat
         </button>
       </div>
+
+      {/* Activity Feed Overlay — left side of globe */}
+      <ActivityFeedOverlay mapRef={mapRef} />
 
       {/* Legend */}
       <div className="absolute bottom-4 left-4 p-3 rounded-lg flex flex-col gap-2 z-10 border border-border-divider"

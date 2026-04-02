@@ -26,6 +26,41 @@
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
+/* ── Light mode overrides ── */
+[data-theme="light"] {
+  --color-bg-deepest: #f0f4fb;
+  --color-bg-surface: #ffffff;
+  --color-bg-elevated: #e8edf8;
+  --color-border-divider: #c8d4e8;
+  --color-text-primary: #0f1a2e;
+  --color-text-secondary: #3a4f6a;
+  --color-text-muted: #7a8ba8;
+  --color-accent-blue: #1a56db;
+  --color-accent-blue-glow: rgba(26, 86, 219, 0.2);
+  --color-danger: #dc2626;
+  --color-success: #16a34a;
+}
+
+[data-theme="light"] .glass-panel {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: #c8d4e8;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 24px rgba(0,0,0,0.08);
+}
+
+[data-theme="light"] .glass-button {
+  background: rgba(240, 244, 251, 0.8);
+  border-color: #c8d4e8;
+}
+
+[data-theme="light"] .mapboxgl-ctrl-group {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: #c8d4e8 !important;
+}
+
+[data-theme="light"] .mapboxgl-ctrl-icon {
+  filter: none !important;
+}
+
 body {
   background-color: var(--color-bg-deepest);
   color: var(--color-text-primary);
