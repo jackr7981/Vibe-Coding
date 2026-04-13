@@ -190,14 +190,14 @@ footer{text-align:center;padding:28px 0 8px;color:var(--text-muted);font-size:0.
 <div id="loading-screen">
   <div id="load-line"></div>
   <div id="load-title"></div>
-  <div id="load-sub">35 projects visualized</div>
+  <div id="load-sub">36 projects visualized</div>
 </div>
 
 <!-- MAIN APP -->
 <div class="app" id="app">
 <header>
   <h1>Vibe Coding Dashboard</h1>
-  <p>35 projects visualized</p>
+  <p>36 projects visualized</p>
 </header>
 
 <nav class="tab-nav" id="tab-nav">
@@ -218,59 +218,78 @@ footer{text-align:center;padding:28px 0 8px;color:var(--text-muted);font-size:0.
 <section id="t3" class="tab-content"><div class="chart-card full" style="margin-bottom:14px"><div class="chart-title">Technology Frequency — Bubble Map</div><div class="bubble-legend" id="bub-legend"></div><div class="bubble-field" id="bub-field"></div></div><div class="chart-card full"><div class="chart-title">Technology Heatmap — Projects × Key Technologies</div><div class="hm-wrap" id="hm-wrap"><div class="scanline" id="scanline" style="display:none"></div><table class="hm-table" id="hm-table"></table></div></div></section>
 </main>
 
-<footer>Generated: April 2026 · 35 projects · Rafsun's Vibe Coding Portfolio</footer>
+<footer>Generated: April 2026 · 36 projects · Rafsun's Vibe Coding Portfolio</footer>
 </div>
 
 <script>
 /* ══════════════════════════════════════════════════════════
-   DATA — All 35 Real Projects
+   DATA — All 36 Real Projects
    ══════════════════════════════════════════════════════════ */
 const PROJECTS=[
-{name:"Forex Dashboard",category:"Trading / Finance",stack:["Python","JavaScript","React","TypeScript","CSV/Data"],primaryLang:"Python",files:4866,lines:{py:32300,ts:3531,tsx:5676,js:44,jsx:8746,css:351,json:62717,md:18651},totalLOC:132016,techSignals:["Python","React","TypeScript","Parquet","CSV data"],description:"Comprehensive Forex trading dashboard with historical data pipeline",codeLocation:"root"},
-{name:"Vantage",category:"Trading / Finance",stack:["Python","TypeScript","React","JavaScript"],primaryLang:"TypeScript",files:548,lines:{py:8017,ts:32404,tsx:5237,js:23,jsx:760,html:3658,css:3677,json:69783,md:9909},totalLOC:133468,techSignals:["Python","TypeScript","React","SVG charts"],description:"Comprehensive trading and analytics platform",codeLocation:"root"},
-{name:"MarinersHub",category:"Maritime",stack:["TypeScript","React","Vite","Supabase","Python","Google AI","SQL"],primaryLang:"TypeScript",files:254,lines:{py:1416,ts:5902,tsx:12018,js:31,html:54,css:11,json:20366,md:17371},totalLOC:57169,techSignals:["React","Vite","Supabase","Google Gemini","SQL"],description:"BD Mariner Hub v2 — full-stack maritime career platform",codeLocation:"root"},
+{name:"Forex Dashboard",category:"Trading / Finance",stack:["Python","React","TypeScript","JSX"],primaryLang:"Python",files:4859,lines:{py:32300,ts:3531,tsx:5676,js:44,jsx:8746,css:351,json:62717,md:18651,sql:68},totalLOC:132084,techSignals:["Python","React","TypeScript","Parquet","CSV"],description:"Comprehensive Forex trading dashboard with historical data pipeline and analysis",codeLocation:"root"},
+{name:"Vantage",category:"Trading / Finance",stack:["TypeScript","Python","React","JavaScript"],primaryLang:"TypeScript",files:489,lines:{py:8017,ts:32404,tsx:5237,js:23,jsx:760,html:3658,css:3677,json:65486,md:9909,sql:147},totalLOC:129318,techSignals:["Python","TypeScript","React","Compressed assets","SVG charts","SQL"],description:"Vantage — comprehensive trading and analytics platform",codeLocation:"root"},
+{name:"MarinersHub",category:"Maritime",stack:["TypeScript","React","Vite","Supabase","Python","Google AI","SQL"],primaryLang:"TypeScript",files:243,lines:{py:1416,ts:5902,tsx:12018,js:31,html:54,css:11,json:20366,md:17371,sql:3461},totalLOC:60630,techSignals:["React","Vite","Supabase","Google Gemini","SQL","PDF.js"],description:"BD Mariner Hub v2 — full-stack maritime career platform for Bangladeshi seafarers",codeLocation:"root"},
 {name:"The Ultimate Algorithm",category:"Trading / Finance",stack:["TypeScript","React","Python"],primaryLang:"TypeScript",files:248,lines:{py:5251,ts:1581,tsx:4270,js:23,html:15,css:55,json:12860,md:5346},totalLOC:29401,techSignals:["React","TypeScript","Python","Parquet"],description:"Trading strategy research and backtesting system",codeLocation:"root"},
 {name:"The Engine",category:"Trading / Finance",stack:["Python","YAML"],primaryLang:"Python",files:240,lines:{py:23541,html:927,json:24014,md:3976},totalLOC:52458,techSignals:["Python","Parquet","CSV","EURUSD M1"],description:"Core trading engine with historical EURUSD tick data",codeLocation:"root"},
-{name:"TO-Kimi ver",category:"AI / Agents",stack:["Python","JavaScript","React","HTML","CSS"],primaryLang:"Python",files:226,lines:{py:16215,js:2045,jsx:3067,html:6087,css:2480,json:7409,md:11570},totalLOC:48873,techSignals:["Python","React","Multi-model AI","YAML"],description:"Task Orchestrator with Kimi — multi-agent AI system",codeLocation:"root"},
-{name:"App-M",category:"Maritime",stack:["TypeScript","React","Vite","Supabase","Python","Google AI"],primaryLang:"TypeScript",files:127,lines:{py:1416,ts:5909,tsx:8565,html:53,css:2,json:6310,md:13950},totalLOC:36205,techSignals:["React","Vite","Supabase","Google Gemini"],description:"BD Mariner Hub v1 — Maritime career platform",codeLocation:"root"},
+{name:"TO-Kimi ver",category:"AI / Agents",stack:["Python","JavaScript","React","HTML","CSS"],primaryLang:"Python",files:220,lines:{py:16215,js:2045,jsx:3067,html:6087,css:2480,json:7409,md:11562,sql:15},totalLOC:48880,techSignals:["Python","React JSX","Multi-model AI","Shell scripts","YAML"],description:"Task Orchestrator with Kimi model integration — multi-agent AI system",codeLocation:"root"},
+{name:"App-M",category:"Maritime",stack:["TypeScript","React","Vite","Supabase","Python","Google AI"],primaryLang:"TypeScript",files:116,lines:{py:1416,ts:5909,tsx:8565,html:53,css:2,json:6310,md:13950,sql:2577},totalLOC:38782,techSignals:["React","Vite","Supabase","Google Gemini","PDF.js","Bip39"],description:"BD Mariner Hub v1 — Maritime career platform for Bangladeshi seafarers",codeLocation:"root"},
 {name:"The PortFolio",category:"Utilities",stack:["TypeScript","React","Python","GeoJSON"],primaryLang:"TypeScript",files:596,lines:{py:990,ts:1882,tsx:4683,html:73,css:438,json:13125,md:5070},totalLOC:26261,techSignals:["React","TypeScript","GeoJSON","Shapefiles"],description:"Portfolio with Bangladesh geographic data visualizations",codeLocation:"root"},
-{name:"The Orchestrator",category:"AI / Agents",stack:["Python","JavaScript","React","HTML","CSS","YAML"],primaryLang:"Python",files:139,lines:{py:9953,js:168,jsx:5585,html:26,css:1434,json:6941,md:2366},totalLOC:26473,techSignals:["Python","React","YAML","Multi-agent"],description:"Python-based AI orchestration and multi-agent system",codeLocation:"root"},
+{name:"The Orchestrator",category:"AI / Agents",stack:["Python","JavaScript","React","CSS","YAML"],primaryLang:"Python",files:133,lines:{py:9953,js:168,jsx:5585,html:26,css:1434,json:6941,md:2358},totalLOC:26465,techSignals:["Python","React JSX","YAML","TOML","Shell scripts","Multi-agent"],description:"Python-based AI orchestration and multi-agent coordination system",codeLocation:"root"},
 {name:"The ICT Engine",category:"Trading / Finance",stack:["JavaScript","TypeScript","React","Python"],primaryLang:"Python",files:110,lines:{py:4961,ts:747,tsx:2024,css:313,json:8406,md:2213},totalLOC:18664,techSignals:["ICT","Python library (PyPI)","React","Next.js"],description:"ICT Smart Money Concepts — published PyPI library",codeLocation:"root"},
 {name:"Orderflow Engine",category:"Trading / Finance",stack:["TypeScript","React","Next.js","Prisma","Redis","BullMQ"],primaryLang:"TypeScript",files:92,lines:{ts:6634,tsx:1826,css:26,json:97,md:1714},totalLOC:10297,techSignals:["Next.js","Prisma","Redis","BullMQ","Recharts","Zustand"],description:"Real-time orderflow engine with queue processing",codeLocation:"root"},
 {name:"Agents Office",category:"AI / Agents",stack:["JavaScript","React","Ink (Terminal UI)","CSS"],primaryLang:"JavaScript",files:83,lines:{js:2045,jsx:2246,html:333,css:1982,json:7365,md:6112},totalLOC:20083,techSignals:["React","Ink","Node.js","VPS/Tailscale"],description:"Agent orchestration dashboard with terminal UI",codeLocation:"root"},
-{name:"Rice IQ",category:"Agriculture / Data",stack:["JavaScript","React","Python","Mapbox"],primaryLang:"JavaScript",files:74,lines:{js:691,jsx:4127,html:17,css:535,json:24979,md:460},totalLOC:30809,techSignals:["React","Mapbox GL","Recharts","Tailwind"],description:"Rice agriculture intelligence dashboard with maps",codeLocation:"root"},
+{name:"Rice IQ",category:"Agriculture / Data",stack:["JavaScript","React","Mapbox"],primaryLang:"JavaScript",files:73,lines:{js:691,jsx:4127,html:17,css:535,json:24979,md:460},totalLOC:30809,techSignals:["React","Mapbox GL","Recharts","Tailwind","CSV data"],description:"Rice production / agriculture intelligence dashboard with maps and analytics",codeLocation:"root"},
 {name:"The Rice",category:"Agriculture / Data",stack:["JavaScript","React","Mapbox","Framer Motion"],primaryLang:"JavaScript",files:75,lines:{js:106,jsx:3243,html:17,css:172,json:18930},totalLOC:22468,techSignals:["React","Vite","Mapbox GL","Framer Motion"],description:"Rice platform — maps, motion animations, data viz",codeLocation:"root"},
 {name:"GEO analyst",category:"Data Viz / Geo",stack:["Python","HTML"],primaryLang:"Python",files:53,lines:{py:2855,html:404,json:892,md:8319},totalLOC:12470,techSignals:["Python","HTML reports","PDF output"],description:"Geographic / SEO analysis tool",codeLocation:"root"},
 {name:"Dictation Tool",category:"AI / Agents",stack:["TypeScript","React","Next.js","Python","SST/AWS"],primaryLang:"TypeScript",files:48,lines:{py:524,ts:447,tsx:818,js:50,html:17,css:68,json:3951,md:1647},totalLOC:7522,techSignals:["Next.js","SST (AWS)","Python"],description:"AI dictation tool deployed on AWS via SST",codeLocation:"root"},
-{name:"Crew-App",category:"Maritime",stack:["TypeScript","React"],primaryLang:"TypeScript",files:43,lines:{ts:1369,tsx:2511,html:46,css:2,json:3331,md:39},totalLOC:7298,techSignals:["React","TypeScript","SQL"],description:"Crew management app (early version)",codeLocation:"root"},
+{name:"Crew-App",category:"Maritime",stack:["TypeScript","React","SQL"],primaryLang:"TypeScript",files:43,lines:{ts:1369,tsx:2511,html:46,css:2,json:3331,md:39,sql:190},totalLOC:7488,techSignals:["React","TypeScript","SQL"],description:"Crew management app (early version)",codeLocation:"root"},
 {name:"BD-E-quakes",category:"Data Viz / Geo",stack:["TypeScript","React","Vite","Mapbox","Tailwind"],primaryLang:"TypeScript",files:22,lines:{ts:146,tsx:1176,html:18,css:66,json:3402,md:74},totalLOC:4882,techSignals:["React","Vite","Mapbox GL","GeoJSON"],description:"126 years of Bangladesh earthquakes — animated timeline",codeLocation:"root"},
 {name:"TID",category:"Experiments",stack:["Python"],primaryLang:"Python",files:16,lines:{py:1917,json:21215},totalLOC:23132,techSignals:["Python","Parquet"],description:"Data processing and experimental Python project",codeLocation:"root"},
 {name:"Fractal test",category:"Experiments",stack:["Python"],primaryLang:"Python",files:26,lines:{py:1059,json:7884,md:327},totalLOC:9270,techSignals:["Python","Parquet","CSV"],description:"Fractal pattern testing and data experiments",codeLocation:"root"},
 {name:"The study",category:"Experiments",stack:["Python"],primaryLang:"Python",files:17,lines:{json:7884,md:137},totalLOC:8021,techSignals:["Python","Pickle files"],description:"Study and research scratch project",codeLocation:"root"},
 {name:"ready or not",category:"Experiments",stack:["Python"],primaryLang:"Python",files:13,lines:{py:6393,json:4280},totalLOC:10673,techSignals:["Python","Parquet"],description:"Experimental Python project",codeLocation:"root"},
-{name:"CrewTracker v2",category:"Maritime",stack:["TypeScript","Next.js","Prisma"],primaryLang:"TypeScript",files:30,lines:{md:5555},totalLOC:5555,techSignals:["Next.js","Prisma","SQL"],description:"Crew tracker v2 — rebuilt in Next.js with Prisma",codeLocation:"root"},
-{name:"Firebase",category:"Utilities",stack:["HTML","Firebase"],primaryLang:"HTML",files:7,lines:{html:1181,json:10},totalLOC:1191,techSignals:["Firebase"],description:"Firebase hosting stub / static pages",codeLocation:"root"},
-{name:"The Landing Page",category:"Utilities",stack:["TypeScript","React"],primaryLang:"TypeScript",files:4,lines:{md:1120},totalLOC:1120,techSignals:["React","TypeScript"],description:"Portfolio / product landing page",codeLocation:"root"},
-{name:"Agent Score",category:"AI / Agents",stack:["Python","HTML"],primaryLang:"Python",files:1390,lines:{py:74042,html:1310,json:22,md:162},totalLOC:75536,techSignals:["Python","Supabase","FastAPI","MCP server"],description:"Agent trust scoring API — large Python backend",codeLocation:"worktree"},
-{name:"CrewTracker",category:"Maritime",stack:["TypeScript","React","Supabase"],primaryLang:"TypeScript",files:76,lines:{ts:1095,tsx:3750,js:23,html:12,css:164,json:4708,md:44},totalLOC:9796,techSignals:["React","Supabase","SQL"],description:"Crew tracking dashboard — React + Supabase",codeLocation:"worktree"},
-{name:"Mother",category:"AI / Agents",stack:["TypeScript","React"],primaryLang:"TypeScript",files:73,lines:{ts:2003,tsx:2168,css:119,json:8053,md:42},totalLOC:12385,techSignals:["React","TypeScript","Next.js/SST"],description:"Core Maabari platform — parent architecture",codeLocation:"worktree"},
-{name:"Maritime Validator",category:"Maritime",stack:["TypeScript","React","Next.js"],primaryLang:"TypeScript",files:50,lines:{ts:266,tsx:1929,css:36,json:11177,md:36},totalLOC:13444,techSignals:["Next.js","React","Tailwind"],description:"Maritime document validation tool",codeLocation:"worktree"},
+{name:"CrewTracker v2",category:"Maritime",stack:["TypeScript","Next.js","Prisma","Turborepo","pnpm","Anthropic AI"],primaryLang:"TypeScript",files:561,lines:{ts:82916,tsx:24,json:408,md:11768,sql:1647,prisma:3558},totalLOC:100321,techSignals:["Turborepo monorepo","pnpm workspace","Next.js","Prisma ORM","Anthropic Claude SDK","RBAC","SQL","Vitest","Vercel"],description:"Enterprise crew tracker v2 — monorepo: web, worker, DB, RBAC, AI-LLM, compliance, audit, notifications",codeLocation:"combined"},
+{name:"Firebase",category:"Utilities",stack:["HTML","Firebase"],primaryLang:"HTML",files:6,lines:{html:1181,json:10},totalLOC:1191,techSignals:["Firebase","HTML"],description:"Firebase hosting stub / static pages",codeLocation:"root"},
+{name:"Reddit Analyzer",category:"AI / Agents",stack:["Python"],primaryLang:"Python",files:4,lines:{py:396},totalLOC:396,techSignals:["Python"],description:"Reddit data scraper and sentiment analyzer",codeLocation:"root"},
+{name:"The Landing Page",category:"Utilities",stack:["TypeScript","React","Vite"],primaryLang:"TypeScript",files:33,lines:{ts:25,tsx:1433,html:22,css:80,json:2661},totalLOC:4221,techSignals:["React","TypeScript","Vite"],description:"Portfolio / product landing page",codeLocation:"worktree"},
+{name:"Agent Score",category:"AI / Agents",stack:["Python","FastAPI","Supabase","SQL"],primaryLang:"Python",files:37,lines:{py:4037,html:1310,json:22,md:38,sql:152},totalLOC:5559,techSignals:["Python","FastAPI","Supabase","MCP server","Vercel"],description:"Agent trust scoring and evaluation API with anti-cheat and certifications",codeLocation:"worktree"},
+{name:"CrewTracker",category:"Maritime",stack:["TypeScript","React","Supabase","SQL"],primaryLang:"TypeScript",files:80,lines:{ts:1095,tsx:3750,js:23,html:12,css:164,json:4708,md:2169,sql:1194},totalLOC:13115,techSignals:["React","TypeScript","Supabase","SQL","Vite"],description:"Crew tracking dashboard v1 — React frontend with Supabase backend",codeLocation:"combined"},
+{name:"Mother",category:"AI / Agents",stack:["TypeScript","React"],primaryLang:"TypeScript",files:71,lines:{ts:2003,tsx:2168,css:119,json:8053,md:42},totalLOC:12385,techSignals:["React","TypeScript","Next.js/SST"],description:"Core 'Maabari' platform — parent architecture for multiple projects",codeLocation:"worktree"},
+{name:"Maritime Validator",category:"Maritime",stack:["TypeScript","React","Next.js","Tailwind"],primaryLang:"TypeScript",files:48,lines:{ts:266,tsx:1929,css:36,json:11177,md:36},totalLOC:13444,techSignals:["Next.js","React","TypeScript","Tailwind"],description:"Maritime document and certificate validation tool",codeLocation:"worktree"},
 {name:"FSRU",category:"Maritime",stack:["TypeScript","React"],primaryLang:"TypeScript",files:32,lines:{ts:369,tsx:2890,js:23,html:72,css:130,json:4237,md:73},totalLOC:7794,techSignals:["React","TypeScript","CSV data"],description:"FSRU maritime calculator / dashboard",codeLocation:"worktree"},
 {name:"Validator",category:"Maritime",stack:["TypeScript","React","Next.js"],primaryLang:"TypeScript",files:22,lines:{ts:361,tsx:940,css:31,json:51,md:1},totalLOC:1384,techSignals:["Next.js","Tailwind"],description:"Maritime document validator",codeLocation:"worktree"},
 {name:"Maritime Dashboard",category:"Maritime",stack:["JSON/Data"],primaryLang:"JSON",files:5,lines:{json:581,md:1},totalLOC:582,techSignals:["JSON data"],description:"Maritime dashboard — data stub",codeLocation:"worktree"},
 {name:"Mariners Hub",category:"Maritime",stack:["JSON"],primaryLang:"JSON",files:3,lines:{json:13,md:1},totalLOC:14,techSignals:[],description:"Mariners Hub — early stub",codeLocation:"worktree"},
-{name:"Seismic Pulse",category:"Data Viz / Geo",stack:["Markdown"],primaryLang:"Markdown",files:2,lines:{md:1},totalLOC:1,techSignals:[],description:"Seismic pulse — very early stage",codeLocation:"worktree"},
-{name:"WX Dashboard",category:"Data Viz / Geo",stack:["JSON/Data"],primaryLang:"JSON",files:4,lines:{json:32,md:1},totalLOC:33,techSignals:["CSV data"],description:"Weather dashboard — early data stub",codeLocation:"worktree"},
+{name:"Seismic Pulse",category:"Data Viz / Geo",stack:["Markdown","CSV data"],primaryLang:"Markdown",files:4,lines:{md:1556},totalLOC:1556,techSignals:["Design briefs","Earthquake CSV (1900-2026)","Claude Code guide"],description:"Seismic pulse visualization — design briefs and earthquake dataset (126 years)",codeLocation:"root"},
+{name:"WX Dashboard",category:"Data Viz / Geo",stack:["HTML","Data (PDF/XLSX/CSV)"],primaryLang:"HTML",files:17,lines:{html:2752,md:327},totalLOC:3079,techSignals:["HTML dashboards","PDF weather reports","XLSX data","StormGeo","DTN Offshore"],description:"Weather (WX) dashboard with FSRU forecasts, lightning alerts, and marine planners",codeLocation:"root"},
 ];
 
 const TECH_FREQ=[
-{tech:"Python",count:22,family:"Language",color:"#3776ab"},{tech:"TypeScript",count:20,family:"Language",color:"#3178c6"},{tech:"React",count:22,family:"Frontend",color:"#61dafb"},{tech:"JavaScript",count:12,family:"Language",color:"#f7df1e"},
-{tech:"JSON / Data",count:35,family:"Data",color:"#f7c94f"},{tech:"Markdown",count:28,family:"Docs",color:"#a0a0b8"},{tech:"CSS",count:18,family:"Frontend",color:"#563d7c"},{tech:"CSV Data",count:12,family:"Data",color:"#e8a838"},
-{tech:"Next.js",count:6,family:"Frontend",color:"#8cc4ff"},{tech:"Vite",count:6,family:"Frontend",color:"#bd34fe"},{tech:"Tailwind",count:5,family:"Frontend",color:"#06b6d4"},{tech:"Supabase",count:3,family:"Backend/DB",color:"#3dd68c"},
-{tech:"SQL",count:6,family:"Backend/DB",color:"#4f8ef7"},{tech:"Prisma",count:2,family:"Backend/DB",color:"#5a67d8"},{tech:"Redis",count:1,family:"Backend/DB",color:"#dc382d"},{tech:"Mapbox GL",count:4,family:"Maps",color:"#4fd6f7"},
-{tech:"GeoJSON",count:3,family:"Geo",color:"#54c4d4"},{tech:"Recharts",count:4,family:"Charts",color:"#f76c6c"},{tech:"Framer Motion",count:2,family:"UI",color:"#d8a0f7"},{tech:"Google AI",count:2,family:"AI",color:"#bf7cf7"},
-{tech:"SST / AWS",count:2,family:"DevOps",color:"#ff9900"},{tech:"Parquet",count:8,family:"Data",color:"#c4a24f"},{tech:"Ink",count:1,family:"CLI",color:"#5def8a"},{tech:"Firebase",count:1,family:"Backend/DB",color:"#ffca28"},
-{tech:"Zustand",count:1,family:"State",color:"#a0d8a0"},{tech:"Zod",count:1,family:"Validation",color:"#d8b0a0"},{tech:"MCP Server",count:1,family:"AI",color:"#9b59f7"},{tech:"FastAPI",count:1,family:"Backend/DB",color:"#009688"},
+{tech:"React",count:22,family:"Frontend",color:"#61dafb"},
+{tech:"TypeScript",count:21,family:"Language",color:"#3178c6"},
+{tech:"Python",count:20,family:"Language",color:"#3776ab"},
+{tech:"JavaScript",count:12,family:"Language",color:"#f7df1e"},
+{tech:"SQL",count:8,family:"Backend/DB",color:"#4f8ef7"},
+{tech:"Parquet",count:8,family:"Data",color:"#c4a24f"},
+{tech:"Next.js",count:7,family:"Frontend",color:"#8cc4ff"},
+{tech:"Vite",count:7,family:"Frontend",color:"#bd34fe"},
+{tech:"Tailwind",count:5,family:"Frontend",color:"#06b6d4"},
+{tech:"Supabase",count:4,family:"Backend/DB",color:"#3dd68c"},
+{tech:"Mapbox GL",count:4,family:"Maps",color:"#4fd6f7"},
+{tech:"Recharts",count:4,family:"Charts",color:"#f76c6c"},
+{tech:"Prisma",count:3,family:"Backend/DB",color:"#5a67d8"},
+{tech:"GeoJSON",count:3,family:"Geo",color:"#54c4d4"},
+{tech:"Google AI/Gemini",count:2,family:"AI",color:"#bf7cf7"},
+{tech:"Framer Motion",count:2,family:"UI",color:"#d8a0f7"},
+{tech:"SST / AWS",count:2,family:"DevOps",color:"#ff9900"},
+{tech:"Turborepo",count:1,family:"DevOps",color:"#888888"},
+{tech:"Anthropic Claude",count:1,family:"AI",color:"#d97757"},
+{tech:"Redis / BullMQ",count:1,family:"Backend/DB",color:"#dc382d"},
+{tech:"FastAPI",count:1,family:"Backend/DB",color:"#009688"},
+{tech:"Firebase",count:1,family:"Backend/DB",color:"#ffca28"},
+{tech:"Ink (Terminal)",count:1,family:"CLI",color:"#5def8a"},
+{tech:"Zustand",count:1,family:"State",color:"#a0d8a0"},
+{tech:"MCP Server",count:1,family:"AI",color:"#9b59f7"},
 ];
 
 /* ── Aggregates ────────────────────────────────────── */
@@ -385,7 +404,7 @@ function animateCounter(el,end,duration=1200){
 
 function renderKPI(){
   const cards=[
-    {l:'Total Projects',v:35,grad:'from-blue',color:'#4f8ef7',sub:'across 7 categories'},
+    {l:'Total Projects',v:36,grad:'from-blue',color:'#4f8ef7',sub:'across 7 categories'},
     {l:'Lines of Code',v:totalLOC,grad:'from-purple',color:'#9b59f7',sub:'clean, de-duplicated'},
     {l:'Total Files',v:totalFiles,grad:'from-green',color:'#3dd68c',sub:'excluding build artifacts'},
     {l:'Languages Used',v:7,grad:'from-yellow',color:'#f7c94f',sub:'Py · TS · JS · HTML · CSS · MD · JSON'},
@@ -450,7 +469,7 @@ function renderGrid(){
     const col=CAT_COLOR[p.category]||'#4f8ef7';
     const pct=((p.totalLOC/maxLOC)*100).toFixed(1);
     const chips=p.stack.slice(0,6).map(t=>`<span class="chip">${t}</span>`).join('');
-    const icon=p.codeLocation==='worktree'?'🔧':'📁';
+    const icon=p.codeLocation==='worktree'?'🔧':p.codeLocation==='combined'?'📦':'📁';
     return `<div class="project-card" data-ci="${i}" data-col="${col}" style="opacity:0;transform:translateY(30px) scale(0.95)">
       <div class="card-accent" style="background:${col}"></div>
       <div class="card-light"></div>
@@ -507,8 +526,24 @@ function initLangCharts(){
   new Chart(document.getElementById('c-cat-langs'),{type:'bar',data:{labels:CATS,datasets:[{label:'Python',data:CATS.map(c=>catP(c).reduce((s,p)=>s+pyLOC(p),0)),backgroundColor:'#3776abcc'},{label:'TypeScript',data:CATS.map(c=>catP(c).reduce((s,p)=>s+tsLOC(p),0)),backgroundColor:'#3178c6cc'},{label:'JavaScript',data:CATS.map(c=>catP(c).reduce((s,p)=>s+jsLOC(p),0)),backgroundColor:'#f7df1ecc'},{label:'HTML',data:CATS.map(c=>catP(c).reduce((s,p)=>s+htLOC(p),0)),backgroundColor:'#e34c26cc'},{label:'JSON',data:CATS.map(c=>catP(c).reduce((s,p)=>s+jnLOC(p),0)),backgroundColor:'#888888cc'},{label:'Markdown',data:CATS.map(c=>catP(c).reduce((s,p)=>s+mdLOC(p),0)),backgroundColor:'#aaaaaabb'}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'bottom',labels:{font:{size:10},padding:8}},tooltip:{...ttStyle,callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.raw.toLocaleString()}`}}},scales:{x:{stacked:true,grid:{color:'rgba(120,120,160,0.06)'},ticks:{callback:v=>v>=1000?Math.round(v/1000)+'k':v}},y:{stacked:true,grid:{display:false},ticks:{font:{size:10}}}}}});
 }
 function renderInsights(){
-  const avg=Math.round(totalLOC/35),pyPct=((LANG_TOTALS.Python/totalLOC)*100).toFixed(1),tsPct=((LANG_TOTALS.TypeScript/totalLOC)*100).toFixed(1),jsPct=((LANG_TOTALS.JavaScript/totalLOC)*100).toFixed(1);
-  const data=[{l:'Largest by LOC',v:'Vantage · 133,468',s:'followed by Forex Dashboard (132,016)'},{l:'Largest Python Codebase',v:'Agent Score · 74,042 py',s:'FastAPI + MCP server backend'},{l:'Most TypeScript',v:'Vantage · 37,641 ts+tsx',s:'comprehensive trading platform'},{l:'Most Files',v:'Forex Dashboard · 4,866',s:'486 CSVs + 107 Parquets'},{l:'Only Published PyPI Lib',v:'The ICT Engine',s:'smartmoneyconcepts package'},{l:'Smallest Project',v:'Seismic Pulse · 1 LOC',s:'stub / very early stage'},{l:'Avg LOC per Project',v:avg.toLocaleString(),s:'median skewed by large data files'},{l:'Python Share of LOC',v:pyPct+'%',s:`TypeScript: ${tsPct}% · JS: ${jsPct}%`}];
+  const sorted=[...PROJECTS].sort((a,b)=>b.totalLOC-a.totalLOC);
+  const largest=sorted[0],second=sorted[1];
+  const smallest=PROJECTS.reduce((a,b)=>b.totalLOC<a.totalLOC?b:a);
+  const mostPy=PROJECTS.reduce((a,b)=>(b.lines.py||0)>(a.lines.py||0)?b:a);
+  const mostTs=PROJECTS.reduce((a,b)=>((b.lines.ts||0)+(b.lines.tsx||0))>((a.lines.ts||0)+(a.lines.tsx||0))?b:a);
+  const mostFiles=PROJECTS.reduce((a,b)=>b.files>a.files?b:a);
+  const avg=Math.round(totalLOC/PROJECTS.length);
+  const pyPct=((LANG_TOTALS.Python/totalLOC)*100).toFixed(1),tsPct=((LANG_TOTALS.TypeScript/totalLOC)*100).toFixed(1),jsPct=((LANG_TOTALS.JavaScript/totalLOC)*100).toFixed(1);
+  const data=[
+    {l:'Largest by LOC',v:`${largest.name} · ${largest.totalLOC.toLocaleString()}`,s:`runner-up: ${second.name} (${second.totalLOC.toLocaleString()})`},
+    {l:'Most TypeScript',v:`${mostTs.name} · ${((mostTs.lines.ts||0)+(mostTs.lines.tsx||0)).toLocaleString()} ts`,s:'leading TypeScript codebase'},
+    {l:'Most Python',v:`${mostPy.name} · ${(mostPy.lines.py||0).toLocaleString()} py`,s:'core data engineering project'},
+    {l:'Most Files',v:`${mostFiles.name} · ${mostFiles.files.toLocaleString()}`,s:'CSVs, Parquets, TSVs included'},
+    {l:'Only Published PyPI Lib',v:'The ICT Engine',s:'smartmoneyconcepts package'},
+    {l:'Smallest Project',v:`${smallest.name} · ${smallest.totalLOC.toLocaleString()} LOC`,s:'early stub or minimal project'},
+    {l:'Avg LOC per Project',v:avg.toLocaleString(),s:'median skewed by large data files'},
+    {l:'Language Distribution',v:`Py ${pyPct}% · TS ${tsPct}%`,s:`JavaScript: ${jsPct}% of total code`}
+  ];
   const el=document.getElementById('insights-row');
   el.innerHTML=data.map((d,i)=>`<div class="insight-card" style="opacity:0;transform:translateY(20px)" data-ii="${i}"><div class="in-label">${d.l}</div><div class="in-value">${d.v}</div><div class="in-sub">${d.s}</div></div>`).join('');
   el.querySelectorAll('[data-ii]').forEach((c,i)=>{gsap.to(c,{opacity:1,y:0,duration:0.4,delay:i*0.06,ease:'power3.out'})});
@@ -568,19 +603,23 @@ function renderTechStack(){
   });
 
   // ── HEATMAP ──
-  const KEY_TECHS=['React','Next.js','Vite','Supabase','Python','Mapbox','Prisma','Redis','SST','Tailwind','SQL','Google AI'];
+  const KEY_TECHS=['React','TypeScript','Python','Next.js','Vite','SQL','Parquet','Tailwind','Supabase','Mapbox GL','Recharts','Prisma','GeoJSON','Google AI'];
   function uses(p,tech){
-    const all=[...p.stack,...p.techSignals].map(s=>s.toLowerCase());const t=tech.toLowerCase();
-    if(t==='mapbox')return all.some(s=>s.includes('mapbox'));
-    if(t==='redis')return all.some(s=>s.includes('redis')||s.includes('bullmq'));
-    if(t==='sst')return all.some(s=>s.includes('sst')||s.includes('aws'));
+    const all=[...p.stack,...p.techSignals,(p.primaryLang||'')].map(s=>s.toLowerCase());
+    const t=tech.toLowerCase();
+    if(t==='mapbox gl')return all.some(s=>s.includes('mapbox'));
     if(t==='google ai')return all.some(s=>s.includes('google')||s.includes('gemini'));
+    if(t==='recharts')return all.some(s=>s.includes('recharts'));
+    if(t==='geojson')return all.some(s=>s.includes('geojson'));
+    if(t==='parquet')return all.some(s=>s.includes('parquet'));
+    if(t==='sst / aws')return all.some(s=>s.includes('sst')||s.includes('aws'));
     return all.some(s=>s.includes(t));
   }
   const hmProjects=[...PROJECTS].filter(p=>p.totalLOC>=1000).sort((a,b)=>b.totalLOC-a.totalLOC);
   const tbl=document.getElementById('hm-table');
+  const srcIcon=loc=>loc==='worktree'?' <span style="color:var(--text-muted);font-size:0.6rem">🔧</span>':loc==='combined'?' <span style="color:var(--text-muted);font-size:0.6rem">📦</span>':'';
   tbl.innerHTML=`<thead><tr><th class="rl">Project</th>${KEY_TECHS.map((t,ci)=>`<th data-col="${ci}">${t}</th>`).join('')}</tr></thead>
-  <tbody>${hmProjects.map((p,ri)=>`<tr data-row="${ri}" style="opacity:0;transform:translateX(-10px)"><td class="rl">${p.name}${p.codeLocation==='worktree'?' <span style="color:var(--text-muted);font-size:0.6rem">🔧</span>':''}</td>${KEY_TECHS.map((t,ci)=>{const y=uses(p,t);return`<td data-col="${ci}"><div class="hm-dot ${y?'yes':'no'}" data-row="${ri}" data-col="${ci}" style="${y?'transform:scale(0)':''}"></div></td>`}).join('')}</tr>`).join('')}</tbody>`;
+  <tbody>${hmProjects.map((p,ri)=>`<tr data-row="${ri}" style="opacity:0;transform:translateX(-10px)"><td class="rl">${p.name}${srcIcon(p.codeLocation)}</td>${KEY_TECHS.map((t,ci)=>{const y=uses(p,t);return`<td data-col="${ci}"><div class="hm-dot ${y?'yes':'no'}" data-row="${ri}" data-col="${ci}" style="${y?'transform:scale(0)':''}"></div></td>`}).join('')}</tr>`).join('')}</tbody>`;
 
   // Scanline + row reveal
   document.getElementById('scanline').style.display='block';
