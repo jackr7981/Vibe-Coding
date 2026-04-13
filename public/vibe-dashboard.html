@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vibe Coding Dashboard — Rafsun's Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg-primary:    #0f0f13;
+  --bg-card:       #1a1a24;
+  --bg-hover:      #222232;
+  --border:        #2a2a3a;
+  --text-primary:  #e8e8f0;
+  --text-muted:    #7878a0;
+  --accent-blue:   #4f8ef7;
+  --accent-purple: #9b59f7;
+  --accent-green:  #3dd68c;
+  --accent-yellow: #f7c94f;
+  --accent-red:    #f76c6c;
+  --accent-cyan:   #4fd6f7;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+.app { max-width: 1440px; margin: 0 auto; padding: 0 28px 56px; }
+
+/* ── Header ── */
+header { padding: 40px 0 0; border-bottom: 1px solid var(--border); }
+.header-inner { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 20px; }
+header h1 {
+  font-size: 2rem; font-weight: 800; letter-spacing: -0.5px;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+header p { color: var(--text-muted); font-size: 0.9rem; }
+
+/* ── Tabs ── */
+.tab-nav { display: flex; gap: 2px; overflow-x: auto; padding: 0; }
+.tab-btn {
+  background: none; border: none; border-bottom: 2px solid transparent;
+  color: var(--text-muted); font-family: inherit; font-size: 0.88rem; font-weight: 500;
+  padding: 10px 22px; cursor: pointer; border-radius: 8px 8px 0 0;
+  transition: all 0.15s; white-space: nowrap;
+}
+.tab-btn:hover { color: var(--text-primary); background: var(--bg-hover); }
+.tab-btn.active { color: var(--accent-blue); border-bottom-color: var(--accent-blue); background: rgba(79,142,247,0.08); }
+
+/* ── Tab Content ── */
+.tab-content { display: none; padding-top: 28px; }
+.tab-content.active { display: block; }
+
+/* ── KPI Cards ── */
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-bottom: 20px; }
+.kpi-card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 20px 22px; transition: box-shadow 0.2s;
+}
+.kpi-card:hover { box-shadow: 0 0 18px rgba(79,142,247,0.15); }
+.kpi-label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+.kpi-value { font-size: 1.9rem; font-weight: 800; letter-spacing: -1px; }
+.kpi-sub { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
+.kpi-card:nth-child(1) .kpi-value { color: var(--accent-blue); }
+.kpi-card:nth-child(2) .kpi-value { color: var(--accent-purple); }
+.kpi-card:nth-child(3) .kpi-value { color: var(--accent-green); }
+.kpi-card:nth-child(4) .kpi-value { color: var(--accent-yellow); }
+
+/* ── Charts ── */
+.charts-row { display: grid; grid-template-columns: 1fr 2fr; gap: 14px; margin-bottom: 14px; }
+.chart-card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 20px 22px; transition: box-shadow 0.2s;
+}
+.chart-card:hover { box-shadow: 0 0 14px rgba(79,142,247,0.1); }
+.chart-card.full { margin-bottom: 14px; }
+.chart-title { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px; }
+.chart-wrap { position: relative; }
+
+/* ── Project Grid ── */
+.filter-bar {
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+  margin-bottom: 20px; padding: 14px 18px;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+}
+.filter-pills { display: flex; flex-wrap: wrap; gap: 5px; }
+.pill-btn {
+  background: transparent; border: 1px solid var(--border); color: var(--text-muted);
+  font-family: inherit; font-size: 0.75rem; font-weight: 500;
+  padding: 5px 12px; border-radius: 20px; cursor: pointer; transition: all 0.15s; white-space: nowrap;
+}
+.pill-btn:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+.pill-btn.active { background: var(--accent-blue); border-color: var(--accent-blue); color: #fff; }
+.filter-right { display: flex; gap: 8px; flex-wrap: wrap; margin-left: auto; }
+.filter-right select, .filter-right input {
+  background: var(--bg-primary); border: 1px solid var(--border); color: var(--text-primary);
+  font-family: inherit; font-size: 0.82rem; padding: 6px 10px; border-radius: 8px; outline: none;
+  transition: border-color 0.15s;
+}
+.filter-right select:focus, .filter-right input:focus { border-color: var(--accent-blue); }
+.filter-right input { min-width: 170px; }
+.filter-right input::placeholder { color: var(--text-muted); }
+
+.project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+.project-card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 18px 20px; display: flex; flex-direction: column; gap: 9px;
+  transition: box-shadow 0.2s, transform 0.2s; animation: fadeUp 0.35s ease both;
+}
+.project-card:hover { box-shadow: 0 0 18px rgba(79,142,247,0.15); transform: translateY(-2px); }
+@keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.card-name { font-size: 0.97rem; font-weight: 700; }
+.card-icon { font-size: 0.9rem; flex-shrink: 0; opacity: 0.7; }
+.card-badges { display: flex; gap: 5px; flex-wrap: wrap; }
+.badge { font-size: 0.68rem; font-weight: 600; padding: 2px 8px; border-radius: 5px; text-transform: uppercase; letter-spacing: 0.03em; }
+.b-cat  { background: rgba(79,142,247,0.12); color: var(--accent-blue); }
+.b-lang { background: rgba(155,89,247,0.12); color: var(--accent-purple); }
+/* category-specific badge colours */
+.Maritime   .b-cat { background: rgba(61,214,140,0.12);  color: #3dd68c; }
+.Trading    .b-cat { background: rgba(247,201,79,0.12);  color: #f7c94f; }
+.AI         .b-cat { background: rgba(155,89,247,0.12);  color: #9b59f7; }
+.DataViz    .b-cat { background: rgba(79,142,247,0.12);  color: #4f8ef7; }
+.Agri       .b-cat { background: rgba(93,239,138,0.12);  color: #5def8a; }
+.Utilities  .b-cat { background: rgba(160,160,184,0.12); color: #a0a0b8; }
+.Experiments.b-cat { background: rgba(247,108,108,0.12); color: #f76c6c; }
+.card-stats { display: flex; gap: 14px; }
+.stat { font-size: 0.8rem; }
+.stat-v { font-weight: 700; }
+.stat-k { color: var(--text-muted); }
+.card-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; flex: 1; }
+.chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.chip { font-size: 0.68rem; padding: 2px 7px; border-radius: 4px; background: var(--bg-hover); color: var(--text-muted); border: 1px solid var(--border); }
+.pbar-wrap { height: 3px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.pbar { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple)); }
+.grid-empty { color: var(--text-muted); text-align: center; padding: 48px; grid-column: 1/-1; font-size: 0.9rem; }
+
+/* ── Language Analysis ── */
+.insights-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; margin-top: 14px; }
+.insight-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; transition: box-shadow 0.2s; }
+.insight-card:hover { box-shadow: 0 0 12px rgba(79,142,247,0.12); }
+.in-label { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; }
+.in-value { font-size: 1.05rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 2px; }
+.in-sub { font-size: 0.77rem; color: var(--text-muted); }
+
+/* ── Tech Stack ── */
+.bubble-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+.leg-item { display: flex; align-items: center; gap: 5px; font-size: 0.75rem; color: var(--text-muted); }
+.leg-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.bubble-wrap { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; min-height: 160px; }
+.bubble {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border-radius: 50%; font-size: 0.7rem; font-weight: 700; text-align: center;
+  cursor: default; transition: transform 0.2s; flex-shrink: 0;
+  overflow: hidden; padding: 6px; line-height: 1.2;
+}
+.bubble:hover { transform: scale(1.1); }
+.bubble-cnt { font-size: 0.6rem; font-weight: 600; opacity: 0.85; display: block; margin-top: 1px; }
+
+.hm-wrap { overflow-x: auto; }
+.hm-table { width: 100%; border-collapse: collapse; font-size: 0.76rem; min-width: 720px; }
+.hm-table th { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); padding: 8px 8px; text-align: center; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.hm-table th.rl { text-align: left; }
+.hm-table td { padding: 5px 8px; text-align: center; border-bottom: 1px solid rgba(42,42,58,0.4); }
+.hm-table td.rl { text-align: left; color: var(--text-primary); font-weight: 500; white-space: nowrap; padding-right: 14px; }
+.hm-table tr:hover td { background: var(--bg-hover); }
+.hcell { width: 22px; height: 22px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.68rem; }
+.h-yes { background: rgba(61,214,140,0.2); color: var(--accent-green); }
+
+/* ── Footer ── */
+footer { text-align: center; padding: 28px 0 8px; color: var(--text-muted); font-size: 0.78rem; border-top: 1px solid var(--border); margin-top: 40px; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .charts-row { grid-template-columns: 1fr; }
+  .filter-right { width: 100%; margin-left: 0; }
+  .kpi-row { grid-template-columns: repeat(2,1fr); }
+  header h1 { font-size: 1.5rem; }
+}
+@media (max-width: 480px) {
+  .kpi-row { grid-template-columns: 1fr; }
+  .app { padding: 0 14px 40px; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<header>
+  <div class="header-inner">
+    <h1>⚡ Vibe Coding Dashboard</h1>
+    <p>Rafsun's complete portfolio · 35 projects visualized</p>
+  </div>
+  <nav class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab(0)">Overview</button>
+    <button class="tab-btn" onclick="switchTab(1)">Projects Grid</button>
+    <button class="tab-btn" onclick="switchTab(2)">Language Analysis</button>
+    <button class="tab-btn" onclick="switchTab(3)">Tech Stack Map</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- ── Tab 0: Overview ──────────────────────────────────── -->
+<section id="t0" class="tab-content active">
+  <div class="kpi-row" id="kpi-row"></div>
+  <div class="charts-row">
+    <div class="chart-card">
+      <div class="chart-title">LOC by Category</div>
+      <div class="chart-wrap" style="height:270px"><canvas id="c-cat-donut"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Top 15 Projects by Lines of Code</div>
+      <div class="chart-wrap" style="height:270px"><canvas id="c-top15"></canvas></div>
+    </div>
+  </div>
+  <div class="chart-card full">
+    <div class="chart-title">Language Breakdown — Top 20 Projects by LOC</div>
+    <div class="chart-wrap" style="height:400px"><canvas id="c-stacked"></canvas></div>
+  </div>
+</section>
+
+<!-- ── Tab 1: Projects Grid ─────────────────────────────── -->
+<section id="t1" class="tab-content">
+  <div class="filter-bar">
+    <div class="filter-pills" id="cat-pills"></div>
+    <div class="filter-right">
+      <select id="lang-sel">
+        <option value="">All Languages</option>
+        <option>Python</option><option>TypeScript</option><option>JavaScript</option>
+        <option>HTML</option><option>JSON</option><option>Markdown</option>
+      </select>
+      <select id="sort-sel">
+        <option value="loc">Sort: LOC ↓</option>
+        <option value="files">Sort: Files ↓</option>
+        <option value="name">Sort: Name A–Z</option>
+      </select>
+      <input type="text" id="search-inp" placeholder="Search projects…" />
+    </div>
+  </div>
+  <div class="project-grid" id="project-grid"></div>
+</section>
+
+<!-- ── Tab 2: Language Analysis ─────────────────────────── -->
+<section id="t2" class="tab-content">
+  <div class="charts-row">
+    <div class="chart-card">
+      <div class="chart-title">Language Share of Total LOC</div>
+      <div class="chart-wrap" style="height:290px"><canvas id="c-lang-donut"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Language Composition by Category</div>
+      <div class="chart-wrap" style="height:290px"><canvas id="c-cat-langs"></canvas></div>
+    </div>
+  </div>
+  <div class="insights-row" id="insights-row"></div>
+</section>
+
+<!-- ── Tab 3: Tech Stack Map ─────────────────────────────── -->
+<section id="t3" class="tab-content">
+  <div class="chart-card full">
+    <div class="chart-title">Technology Frequency — Bubble Map</div>
+    <div class="bubble-legend" id="bub-legend"></div>
+    <div class="bubble-wrap" id="bub-wrap"></div>
+  </div>
+  <div class="chart-card full">
+    <div class="chart-title">Technology Heatmap — Projects × Key Technologies</div>
+    <div class="hm-wrap"><table class="hm-table" id="hm-table"></table></div>
+  </div>
+</section>
+
+</main>
+
+<footer>Generated: April 2026 &nbsp;·&nbsp; 35 projects &nbsp;·&nbsp; Rafsun's Vibe Coding Portfolio</footer>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════════════════════
+const PROJECTS = [
+  {name:"Forex Dashboard",category:"Trading / Finance",stack:["Python","JavaScript","React","TypeScript","CSV/Data"],primaryLang:"Python",files:4866,lines:{py:32300,ts:3531,tsx:5676,js:44,jsx:8746,css:351,json:62717,md:18651},totalLOC:132016,techSignals:["Python","React","TypeScript","Parquet","TSV data","CSV data","Zip archives"],description:"Comprehensive Forex trading dashboard with historical data pipeline and analysis",codeLocation:"root"},
+  {name:"Vantage",category:"Trading / Finance",stack:["Python","TypeScript","React","JavaScript"],primaryLang:"TypeScript",files:548,lines:{py:8017,ts:32404,tsx:5237,js:23,jsx:760,html:3658,css:3677,json:69783,md:9909},totalLOC:133468,techSignals:["Python","TypeScript","React","Compressed assets","SVG charts"],description:"Comprehensive trading and analytics platform",codeLocation:"root"},
+  {name:"MarinersHub",category:"Maritime",stack:["TypeScript","React","Vite","Supabase","Python","Google AI","SQL"],primaryLang:"TypeScript",files:254,lines:{py:1416,ts:5902,tsx:12018,js:31,html:54,css:11,json:20366,md:17371},totalLOC:57169,techSignals:["React","Vite","Supabase","Google Gemini","SQL","PDF.js"],description:"BD Mariner Hub v2 — full-stack maritime career platform for Bangladeshi seafarers",codeLocation:"root"},
+  {name:"The Ultimate Algorithm",category:"Trading / Finance",stack:["TypeScript","React","Python"],primaryLang:"TypeScript",files:248,lines:{py:5251,ts:1581,tsx:4270,js:23,html:15,css:55,json:12860,md:5346},totalLOC:29401,techSignals:["React","TypeScript","Python","Parquet data","Zstandard compressed"],description:"Trading strategy research and backtesting system",codeLocation:"root"},
+  {name:"The Engine",category:"Trading / Finance",stack:["Python","YAML"],primaryLang:"Python",files:240,lines:{py:23541,html:927,json:24014,md:3976},totalLOC:52458,techSignals:["Python","YAML config","Parquet","CSV","Historical Forex EURUSD M1"],description:"Core trading engine with historical EURUSD tick data processing",codeLocation:"root"},
+  {name:"TO-Kimi ver",category:"AI / Agents",stack:["Python","JavaScript","React","HTML","CSS"],primaryLang:"Python",files:226,lines:{py:16215,js:2045,jsx:3067,html:6087,css:2480,json:7409,md:11570},totalLOC:48873,techSignals:["Python","React JSX","Multi-model AI","Shell scripts","YAML config"],description:"Task Orchestrator with Kimi model integration — multi-agent AI system",codeLocation:"root"},
+  {name:"App-M",category:"Maritime",stack:["TypeScript","React","Vite","Supabase","Python","Google AI"],primaryLang:"TypeScript",files:127,lines:{py:1416,ts:5909,tsx:8565,html:53,css:2,json:6310,md:13950},totalLOC:36205,techSignals:["React","Vite","Supabase","Google Gemini","PDF.js","Bip39"],description:"BD Mariner Hub v1 — Maritime career platform for Bangladeshi seafarers",codeLocation:"root"},
+  {name:"The PortFolio",category:"Utilities",stack:["TypeScript","React","Python","GeoJSON","Shapefile"],primaryLang:"TypeScript",files:596,lines:{py:990,ts:1882,tsx:4683,html:73,css:438,json:13125,md:5070},totalLOC:26261,techSignals:["React","TypeScript","Python","GeoJSON","Shapefiles","PDF reports","CSV"],description:"Portfolio with Bangladesh geographic data visualizations",codeLocation:"root"},
+  {name:"The Orchestrator",category:"AI / Agents",stack:["Python","JavaScript","React","HTML","CSS","YAML"],primaryLang:"Python",files:139,lines:{py:9953,js:168,jsx:5585,html:26,css:1434,json:6941,md:2366},totalLOC:26473,techSignals:["Python","React JSX","YAML config","TOML","Shell scripts","Multi-agent"],description:"Python-based AI orchestration and multi-agent coordination system",codeLocation:"root"},
+  {name:"The ICT Engine",category:"Trading / Finance",stack:["JavaScript","TypeScript","React","Python"],primaryLang:"Python",files:110,lines:{py:4961,ts:747,tsx:2024,css:313,json:8406,md:2213},totalLOC:18664,techSignals:["Smart Money Concepts","ICT","Python library (PyPI)","React","Next.js"],description:"ICT Smart Money Concepts engine — includes published PyPI library (smartmoneyconcepts)",codeLocation:"root"},
+  {name:"Orderflow Engine",category:"Trading / Finance",stack:["TypeScript","React","Next.js","Prisma","Redis","BullMQ"],primaryLang:"TypeScript",files:92,lines:{ts:6634,tsx:1826,css:26,json:97,md:1714},totalLOC:10297,techSignals:["Next.js","Prisma","Redis","BullMQ","Lightweight Charts","Recharts","Zustand","Zod"],description:"Real-time orderflow trading engine with queue processing and charting",codeLocation:"root"},
+  {name:"Agents Office",category:"AI / Agents",stack:["JavaScript","React","Ink (Terminal UI)","CSS"],primaryLang:"JavaScript",files:83,lines:{js:2045,jsx:2246,html:333,css:1982,json:7365,md:6112},totalLOC:20083,techSignals:["React","Ink","Chalk","Node.js","VPS/Tailscale"],description:"Agent orchestration dashboard with terminal UI, deployed on Debian VPS via Tailscale",codeLocation:"root"},
+  {name:"Rice IQ",category:"Agriculture / Data",stack:["JavaScript","React","Python","Mapbox"],primaryLang:"JavaScript",files:74,lines:{js:691,jsx:4127,html:17,css:535,json:24979,md:460},totalLOC:30809,techSignals:["React","Mapbox GL","Recharts","Tailwind","Python","CSV data"],description:"Rice production / agriculture intelligence dashboard with maps and analytics",codeLocation:"root"},
+  {name:"The Rice",category:"Agriculture / Data",stack:["JavaScript","React","Mapbox","Framer Motion"],primaryLang:"JavaScript",files:75,lines:{js:106,jsx:3243,html:17,css:172,json:18930},totalLOC:22468,techSignals:["React","Vite","Mapbox GL","Framer Motion","Recharts","Tailwind"],description:"Rice platform — frontend with maps, motion animations, and data viz",codeLocation:"root"},
+  {name:"GEO analyst",category:"Data Viz / Geo",stack:["Python","HTML"],primaryLang:"Python",files:53,lines:{py:2855,html:404,json:892,md:8319},totalLOC:12470,techSignals:["Python","HTML reports","PDF output","Shell scripts"],description:"Geographic / SEO analysis tool with HTML report generation",codeLocation:"root"},
+  {name:"Dictation Tool",category:"AI / Agents",stack:["TypeScript","React","Next.js","Python","SST/AWS"],primaryLang:"TypeScript",files:48,lines:{py:524,ts:447,tsx:818,js:50,html:17,css:68,json:3951,md:1647},totalLOC:7522,techSignals:["Next.js","SST (AWS)","Python","React"],description:"AI-powered dictation and transcription tool deployed on AWS via SST",codeLocation:"root"},
+  {name:"Crew-App",category:"Maritime",stack:["TypeScript","React"],primaryLang:"TypeScript",files:43,lines:{ts:1369,tsx:2511,html:46,css:2,json:3331,md:39},totalLOC:7298,techSignals:["React","TypeScript","SQL"],description:"Crew management app (early version)",codeLocation:"root"},
+  {name:"BD-E-quakes",category:"Data Viz / Geo",stack:["TypeScript","React","Vite","Mapbox","Tailwind"],primaryLang:"TypeScript",files:22,lines:{ts:146,tsx:1176,html:18,css:66,json:3402,md:74},totalLOC:4882,techSignals:["React","Vite","Mapbox GL","Tailwind","GeoJSON"],description:"126 years of earthquakes (1900–2026) within ~500 km of Bangladesh — animated map timeline",codeLocation:"root"},
+  {name:"TID",category:"Experiments",stack:["Python"],primaryLang:"Python",files:16,lines:{py:1917,json:21215},totalLOC:23132,techSignals:["Python","Parquet","JSON data"],description:"TID — data processing and experimental Python project",codeLocation:"root"},
+  {name:"Fractal test",category:"Experiments",stack:["Python"],primaryLang:"Python",files:26,lines:{py:1059,json:7884,md:327},totalLOC:9270,techSignals:["Python","Parquet","CSV"],description:"Fractal pattern testing and data experiments",codeLocation:"root"},
+  {name:"The study",category:"Experiments",stack:["Python"],primaryLang:"Python",files:17,lines:{json:7884,md:137},totalLOC:8021,techSignals:["Python","Pickle files","PNG images"],description:"Study and research scratch project",codeLocation:"root"},
+  {name:"ready or not",category:"Experiments",stack:["Python"],primaryLang:"Python",files:13,lines:{py:6393,json:4280},totalLOC:10673,techSignals:["Python","Parquet"],description:"Experimental Python project",codeLocation:"root"},
+  {name:"CrewTracker v2",category:"Maritime",stack:["TypeScript","Next.js","Prisma"],primaryLang:"TypeScript",files:30,lines:{md:5555},totalLOC:5555,techSignals:["Next.js","Prisma","TypeScript","SQL","YAML CI/CD"],description:"Crew tracker v2 — rebuilt in Next.js with Prisma ORM",codeLocation:"root"},
+  {name:"Firebase",category:"Utilities",stack:["HTML","Firebase"],primaryLang:"HTML",files:7,lines:{html:1181,json:10},totalLOC:1191,techSignals:["Firebase","HTML"],description:"Firebase hosting stub / static pages",codeLocation:"root"},
+  {name:"The Landing Page",category:"Utilities",stack:["TypeScript","React"],primaryLang:"TypeScript",files:4,lines:{md:1120},totalLOC:1120,techSignals:["React","TypeScript","PNG assets"],description:"Portfolio / product landing page",codeLocation:"root"},
+  {name:"Agent Score",category:"AI / Agents",stack:["Python","HTML"],primaryLang:"Python",files:1390,lines:{py:74042,html:1310,json:22,md:162},totalLOC:75536,techSignals:["Python","Supabase","FastAPI","MCP server","Vercel"],description:"Agent trust scoring and evaluation API — large Python backend with MCP server",codeLocation:"worktree"},
+  {name:"CrewTracker",category:"Maritime",stack:["TypeScript","React","Supabase"],primaryLang:"TypeScript",files:76,lines:{ts:1095,tsx:3750,js:23,html:12,css:164,json:4708,md:44},totalLOC:9796,techSignals:["React","TypeScript","Supabase","SQL"],description:"Crew tracking dashboard — React frontend with Supabase backend",codeLocation:"worktree"},
+  {name:"Mother",category:"AI / Agents",stack:["TypeScript","React"],primaryLang:"TypeScript",files:73,lines:{ts:2003,tsx:2168,css:119,json:8053,md:42},totalLOC:12385,techSignals:["React","TypeScript","Next.js/SST"],description:"Core 'Maabari' platform — parent architecture for multiple projects",codeLocation:"worktree"},
+  {name:"Maritime Validator",category:"Maritime",stack:["TypeScript","React","Next.js"],primaryLang:"TypeScript",files:50,lines:{ts:266,tsx:1929,css:36,json:11177,md:36},totalLOC:13444,techSignals:["Next.js","React","TypeScript","Tailwind"],description:"Maritime document and certificate validation tool",codeLocation:"worktree"},
+  {name:"FSRU",category:"Maritime",stack:["TypeScript","React"],primaryLang:"TypeScript",files:32,lines:{ts:369,tsx:2890,js:23,html:72,css:130,json:4237,md:73},totalLOC:7794,techSignals:["React","TypeScript","CSV data"],description:"FSRU (Floating Storage & Regasification Unit) maritime calculator / dashboard",codeLocation:"worktree"},
+  {name:"Validator",category:"Maritime",stack:["TypeScript","React","Next.js"],primaryLang:"TypeScript",files:22,lines:{ts:361,tsx:940,css:31,json:51,md:1},totalLOC:1384,techSignals:["Next.js","React","TypeScript","Tailwind"],description:"Maritime document validator",codeLocation:"worktree"},
+  {name:"Maritime Dashboard",category:"Maritime",stack:["JSON/Data"],primaryLang:"JSON",files:5,lines:{json:581,md:1},totalLOC:582,techSignals:["JSON data","Offshore assets"],description:"Maritime operations dashboard — data stub / early prototype",codeLocation:"worktree"},
+  {name:"Mariners Hub",category:"Maritime",stack:["JSON"],primaryLang:"JSON",files:3,lines:{json:13,md:1},totalLOC:14,techSignals:[],description:"Mariners Hub — early stub (superseded by MarinersHub)",codeLocation:"worktree"},
+  {name:"Seismic Pulse",category:"Data Viz / Geo",stack:["Markdown"],primaryLang:"Markdown",files:2,lines:{md:1},totalLOC:1,techSignals:[],description:"Seismic pulse visualization — stub / very early stage",codeLocation:"worktree"},
+  {name:"WX Dashboard",category:"Data Viz / Geo",stack:["JSON/Data"],primaryLang:"JSON",files:4,lines:{json:32,md:1},totalLOC:33,techSignals:["PDF files","XLSX data","CSV data"],description:"Weather (WX) dashboard — early data stub",codeLocation:"worktree"},
+];
+
+const TECH_FREQ = [
+  {tech:"Python",count:22,family:"Language"},
+  {tech:"TypeScript",count:20,family:"Language"},
+  {tech:"React",count:22,family:"Frontend"},
+  {tech:"JavaScript",count:12,family:"Language"},
+  {tech:"JSON / Data",count:35,family:"Data"},
+  {tech:"Markdown Docs",count:28,family:"Docs"},
+  {tech:"CSS",count:18,family:"Frontend"},
+  {tech:"CSV Data",count:12,family:"Data"},
+  {tech:"Next.js",count:6,family:"Frontend"},
+  {tech:"Vite",count:6,family:"Frontend"},
+  {tech:"Tailwind",count:5,family:"Frontend"},
+  {tech:"Supabase",count:3,family:"Backend/DB"},
+  {tech:"SQL",count:6,family:"Backend/DB"},
+  {tech:"Prisma",count:2,family:"Backend/DB"},
+  {tech:"Redis / BullMQ",count:1,family:"Backend/DB"},
+  {tech:"Mapbox GL",count:4,family:"Maps"},
+  {tech:"GeoJSON",count:3,family:"Geo"},
+  {tech:"Recharts",count:4,family:"Charts"},
+  {tech:"Framer Motion",count:2,family:"UI"},
+  {tech:"Google AI/Gemini",count:2,family:"AI"},
+  {tech:"SST / AWS",count:2,family:"DevOps"},
+  {tech:"Parquet",count:8,family:"Data"},
+  {tech:"Ink (Terminal)",count:1,family:"CLI"},
+  {tech:"Firebase",count:1,family:"Backend/DB"},
+  {tech:"Zustand",count:1,family:"State"},
+  {tech:"Zod",count:1,family:"Validation"},
+  {tech:"MCP Server",count:1,family:"AI"},
+  {tech:"FastAPI",count:1,family:"Backend/DB"},
+];
+
+// ── Aggregates ──────────────────────────────────────────
+const totalFiles = PROJECTS.reduce((s,p)=>s+p.files,0);
+const totalLOC   = PROJECTS.reduce((s,p)=>s+p.totalLOC,0);
+const maxLOC     = Math.max(...PROJECTS.map(p=>p.totalLOC));
+
+const L = (p,k) => p.lines[k]||0;
+const pyLOC  = p => L(p,'py');
+const tsLOC  = p => L(p,'ts')+L(p,'tsx');
+const jsLOC  = p => L(p,'js')+L(p,'jsx');
+const htLOC  = p => L(p,'html');
+const cssLOC = p => L(p,'css');
+const jnLOC  = p => L(p,'json');
+const mdLOC  = p => L(p,'md');
+const otLOC  = p => htLOC(p)+cssLOC(p)+jnLOC(p)+mdLOC(p);
+
+const LANG_TOTALS = {
+  Python:     PROJECTS.reduce((s,p)=>s+pyLOC(p),0),
+  TypeScript: PROJECTS.reduce((s,p)=>s+tsLOC(p),0),
+  JavaScript: PROJECTS.reduce((s,p)=>s+jsLOC(p),0),
+  HTML:       PROJECTS.reduce((s,p)=>s+htLOC(p),0),
+  CSS:        PROJECTS.reduce((s,p)=>s+cssLOC(p),0),
+  Markdown:   PROJECTS.reduce((s,p)=>s+mdLOC(p),0),
+  JSON:       PROJECTS.reduce((s,p)=>s+jnLOC(p),0),
+};
+
+const CATS = ["Trading / Finance","Maritime","AI / Agents","Data Viz / Geo","Agriculture / Data","Utilities","Experiments"];
+const CAT_COLOR = {
+  "Trading / Finance":"#f7c94f","Maritime":"#3dd68c","AI / Agents":"#9b59f7",
+  "Data Viz / Geo":"#4f8ef7","Agriculture / Data":"#5def8a","Utilities":"#a0a0b8","Experiments":"#f76c6c"
+};
+const CAT_SLUG = {
+  "Trading / Finance":"Trading","Maritime":"Maritime","AI / Agents":"AI",
+  "Data Viz / Geo":"DataViz","Agriculture / Data":"Agri","Utilities":"Utilities","Experiments":"Experiments"
+};
+const LANG_COLOR = {
+  Python:"#3776ab",TypeScript:"#3178c6",JavaScript:"#f7df1e",
+  HTML:"#e34c26",CSS:"#563d7c",JSON:"#888888",Markdown:"#aaaaaa"
+};
+const FAMILY_COLOR = {
+  Language:"#4f8ef7",Frontend:"#9b59f7","Backend/DB":"#3dd68c",Data:"#f7c94f",
+  Docs:"#a0a0b8",Maps:"#4fd6f7",Geo:"#54c4d4",Charts:"#f76c6c",UI:"#d8a0f7",
+  AI:"#bf7cf7",DevOps:"#f7a04f",CLI:"#5def8a",State:"#a0d8a0",Validation:"#d8b0a0"
+};
+
+const catLOC = {};
+CATS.forEach(c => { catLOC[c] = PROJECTS.filter(p=>p.category===c).reduce((s,p)=>s+p.totalLOC,0); });
+
+// ── Global Chart.js defaults ──────────────────────────────
+Chart.defaults.color = '#7878a0';
+Chart.defaults.borderColor = '#2a2a3a';
+Chart.defaults.font.family = "'Inter', -apple-system, sans-serif";
+Chart.defaults.plugins.legend.labels.usePointStyle = true;
+Chart.defaults.plugins.legend.labels.pointStyleWidth = 8;
+
+// ── State ──────────────────────────────────────────────────
+let t2init = false, t3done = false;
+let activeCat = 'All';
+
+// ══════════════════════════════════════════════════════════
+// TABS
+// ══════════════════════════════════════════════════════════
+function switchTab(n) {
+  document.querySelectorAll('.tab-content').forEach((el,i)=>el.classList.toggle('active',i===n));
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',i===n));
+  if (n===1) renderGrid();
+  if (n===2 && !t2init) { initLangCharts(); renderInsights(); t2init=true; }
+  if (n===3 && !t3done) { renderTechStack(); t3done=true; }
+}
+
+// ══════════════════════════════════════════════════════════
+// TAB 0 — OVERVIEW
+// ══════════════════════════════════════════════════════════
+function renderKPI() {
+  document.getElementById('kpi-row').innerHTML = [
+    {l:'Total Projects',      v:'35',                        s:'across 7 categories'},
+    {l:'Lines of Code',       v:totalLOC.toLocaleString(),   s:'clean · de-duplicated'},
+    {l:'Total Files',         v:totalFiles.toLocaleString(), s:'excluding build artifacts'},
+    {l:'Languages Used',      v:'7',                         s:'Py · TS · JS · HTML · CSS · MD · JSON'},
+  ].map(c=>`<div class="kpi-card"><div class="kpi-label">${c.l}</div><div class="kpi-value">${c.v}</div><div class="kpi-sub">${c.s}</div></div>`).join('');
+}
+
+function initOverviewCharts() {
+  // Donut — LOC by category
+  new Chart(document.getElementById('c-cat-donut').getContext('2d'), {
+    type:'doughnut',
+    data:{
+      labels: CATS,
+      datasets:[{
+        data: CATS.map(c=>catLOC[c]),
+        backgroundColor: CATS.map(c=>CAT_COLOR[c]+'bb'),
+        borderColor: CATS.map(c=>CAT_COLOR[c]),
+        borderWidth:1.5, hoverOffset:8,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false, cutout:'62%',
+      plugins:{
+        legend:{position:'bottom',labels:{padding:8,font:{size:10}}},
+        tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${ctx.raw.toLocaleString()} LOC`}}
+      }
+    }
+  });
+
+  // Horizontal bar — top 15
+  const top15 = [...PROJECTS].sort((a,b)=>b.totalLOC-a.totalLOC).slice(0,15);
+  new Chart(document.getElementById('c-top15').getContext('2d'), {
+    type:'bar',
+    data:{
+      labels: top15.map(p=>p.name),
+      datasets:[{
+        label:'LOC',
+        data: top15.map(p=>p.totalLOC),
+        backgroundColor: top15.map(p=>CAT_COLOR[p.category]+'bb'),
+        borderColor: top15.map(p=>CAT_COLOR[p.category]),
+        borderWidth:1, borderRadius:4, borderSkipped:false,
+      }]
+    },
+    options:{
+      indexAxis:'y', responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>` ${ctx.raw.toLocaleString()} LOC`}}
+      },
+      scales:{
+        x:{grid:{color:'rgba(42,42,58,0.6)'},ticks:{callback:v=>v>=1000?Math.round(v/1000)+'k':v}},
+        y:{grid:{display:false},ticks:{font:{size:10}}}
+      }
+    }
+  });
+
+  // Stacked bar — top 20 language breakdown
+  const top20 = [...PROJECTS].sort((a,b)=>b.totalLOC-a.totalLOC).slice(0,20);
+  new Chart(document.getElementById('c-stacked').getContext('2d'), {
+    type:'bar',
+    data:{
+      labels: top20.map(p=>p.name),
+      datasets:[
+        {label:'Python',     data:top20.map(pyLOC), backgroundColor:'#3776abcc', borderRadius:0},
+        {label:'TypeScript', data:top20.map(tsLOC), backgroundColor:'#3178c6cc', borderRadius:0},
+        {label:'JavaScript', data:top20.map(jsLOC), backgroundColor:'#f7df1ecc', borderRadius:0},
+        {label:'Other',      data:top20.map(otLOC), backgroundColor:'#44445566',  borderRadius:0},
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{position:'bottom',labels:{font:{size:11},padding:10}},
+        tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.raw.toLocaleString()}`}}
+      },
+      scales:{
+        x:{stacked:true,grid:{display:false},ticks:{font:{size:9},maxRotation:35,minRotation:20}},
+        y:{stacked:true,grid:{color:'rgba(42,42,58,0.6)'},ticks:{callback:v=>v>=1000?Math.round(v/1000)+'k':v}}
+      }
+    }
+  });
+}
+
+// ══════════════════════════════════════════════════════════
+// TAB 1 — PROJECTS GRID
+// ══════════════════════════════════════════════════════════
+function buildPills() {
+  document.getElementById('cat-pills').innerHTML =
+    ['All',...CATS].map(c=>`<button class="pill-btn${c==='All'?' active':''}" onclick="filterCat(this,'${c}')">${c}</button>`).join('');
+}
+
+function filterCat(btn, cat) {
+  document.querySelectorAll('#cat-pills .pill-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  activeCat = cat;
+  renderGrid();
+}
+
+function renderGrid() {
+  let list = [...PROJECTS];
+  if (activeCat !== 'All') list = list.filter(p=>p.category===activeCat);
+  const lang  = document.getElementById('lang-sel')?.value||'';
+  if (lang) list = list.filter(p=>p.primaryLang===lang||p.stack.some(s=>s.toLowerCase().includes(lang.toLowerCase())));
+  const srch = (document.getElementById('search-inp')?.value||'').toLowerCase();
+  if (srch) list = list.filter(p=>p.name.toLowerCase().includes(srch)||p.description.toLowerCase().includes(srch));
+  const sort = document.getElementById('sort-sel')?.value||'loc';
+  if (sort==='loc')   list.sort((a,b)=>b.totalLOC-a.totalLOC);
+  if (sort==='files') list.sort((a,b)=>b.files-a.files);
+  if (sort==='name')  list.sort((a,b)=>a.name.localeCompare(b.name));
+
+  const grid = document.getElementById('project-grid');
+  if (!list.length) { grid.innerHTML='<div class="grid-empty">No projects match your filters.</div>'; return; }
+
+  grid.innerHTML = list.map((p,i)=>{
+    const slug = CAT_SLUG[p.category]||'Other';
+    const pct  = ((p.totalLOC/maxLOC)*100).toFixed(1);
+    const delay= (i%12)*0.04;
+    const chips= p.stack.slice(0,6).map(t=>`<span class="chip">${t}</span>`).join('');
+    const icon = p.codeLocation==='worktree'?'🔧':'📁';
+    return `
+    <div class="project-card ${slug}" style="animation-delay:${delay}s">
+      <div class="card-top">
+        <div class="card-name">${p.name}</div>
+        <div class="card-icon" title="${p.codeLocation==='worktree'?'Worktree':'Root'}">${icon}</div>
+      </div>
+      <div class="card-badges">
+        <span class="badge b-cat">${p.category}</span>
+        <span class="badge b-lang">${p.primaryLang}</span>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-v">${p.totalLOC.toLocaleString()}</span> <span class="stat-k">LOC</span></div>
+        <div class="stat"><span class="stat-v">${p.files.toLocaleString()}</span> <span class="stat-k">files</span></div>
+      </div>
+      <div class="card-desc">${p.description}</div>
+      <div class="chips">${chips}</div>
+      <div class="pbar-wrap"><div class="pbar" style="width:${pct}%"></div></div>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════════════════
+// TAB 2 — LANGUAGE ANALYSIS
+// ══════════════════════════════════════════════════════════
+function initLangCharts() {
+  const langs = ['Python','TypeScript','JavaScript','HTML','CSS','JSON','Markdown'];
+
+  // Language share donut
+  new Chart(document.getElementById('c-lang-donut').getContext('2d'), {
+    type:'doughnut',
+    data:{
+      labels: langs,
+      datasets:[{
+        data: langs.map(l=>LANG_TOTALS[l]),
+        backgroundColor: langs.map(l=>LANG_COLOR[l]+'bb'),
+        borderColor: langs.map(l=>LANG_COLOR[l]),
+        borderWidth:1.5, hoverOffset:8
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false, cutout:'60%',
+      plugins:{
+        legend:{position:'bottom',labels:{font:{size:10},padding:8}},
+        tooltip:{callbacks:{label:ctx=>{
+          const pct=((ctx.raw/totalLOC)*100).toFixed(1);
+          return ` ${ctx.label}: ${ctx.raw.toLocaleString()} (${pct}%)`;
+        }}}
+      }
+    }
+  });
+
+  // Language per category stacked h-bar
+  const catP = cat => PROJECTS.filter(p=>p.category===cat);
+  new Chart(document.getElementById('c-cat-langs').getContext('2d'), {
+    type:'bar',
+    data:{
+      labels: CATS,
+      datasets:[
+        {label:'Python',     data:CATS.map(c=>catP(c).reduce((s,p)=>s+pyLOC(p),0)),  backgroundColor:'#3776abcc'},
+        {label:'TypeScript', data:CATS.map(c=>catP(c).reduce((s,p)=>s+tsLOC(p),0)),  backgroundColor:'#3178c6cc'},
+        {label:'JavaScript', data:CATS.map(c=>catP(c).reduce((s,p)=>s+jsLOC(p),0)),  backgroundColor:'#f7df1ecc'},
+        {label:'HTML',       data:CATS.map(c=>catP(c).reduce((s,p)=>s+htLOC(p),0)),  backgroundColor:'#e34c26cc'},
+        {label:'JSON',       data:CATS.map(c=>catP(c).reduce((s,p)=>s+jnLOC(p),0)),  backgroundColor:'#888888cc'},
+        {label:'Markdown',   data:CATS.map(c=>catP(c).reduce((s,p)=>s+mdLOC(p),0)),  backgroundColor:'#aaaaaacc'},
+      ]
+    },
+    options:{
+      indexAxis:'y', responsive:true, maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{position:'bottom',labels:{font:{size:10},padding:8}},
+        tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.raw.toLocaleString()}`}}
+      },
+      scales:{
+        x:{stacked:true,grid:{color:'rgba(42,42,58,0.6)'},ticks:{callback:v=>v>=1000?Math.round(v/1000)+'k':v}},
+        y:{stacked:true,grid:{display:false},ticks:{font:{size:10}}}
+      }
+    }
+  });
+}
+
+function renderInsights() {
+  const avg    = Math.round(totalLOC/35);
+  const pyPct  = ((LANG_TOTALS.Python/totalLOC)*100).toFixed(1);
+  const tsPct  = ((LANG_TOTALS.TypeScript/totalLOC)*100).toFixed(1);
+  const jsPct  = ((LANG_TOTALS.JavaScript/totalLOC)*100).toFixed(1);
+  const data = [
+    {l:'Largest by LOC',           v:'Vantage · 133,468',          s:'followed by Forex Dashboard (132,016)'},
+    {l:'Largest Python Codebase',  v:'Agent Score · 74,042 py',    s:'FastAPI + MCP server backend'},
+    {l:'Most TypeScript',          v:'Vantage · 37,641 ts+tsx',    s:'comprehensive trading platform'},
+    {l:'Most Files',               v:'Forex Dashboard · 4,866',    s:'486 CSVs + 107 Parquets'},
+    {l:'Only Published PyPI Lib',  v:'The ICT Engine',              s:'smartmoneyconcepts package'},
+    {l:'Smallest Project',         v:'Seismic Pulse · 1 LOC',      s:'stub / very early stage'},
+    {l:'Avg LOC per Project',      v:avg.toLocaleString(),          s:'median skewed by large data files'},
+    {l:'Python Share of LOC',      v:pyPct+'%',                     s:`TypeScript: ${tsPct}% · JS: ${jsPct}%`},
+  ];
+  document.getElementById('insights-row').innerHTML = data.map(d=>`
+    <div class="insight-card">
+      <div class="in-label">${d.l}</div>
+      <div class="in-value">${d.v}</div>
+      <div class="in-sub">${d.s}</div>
+    </div>`).join('');
+}
+
+// ══════════════════════════════════════════════════════════
+// TAB 3 — TECH STACK MAP
+// ══════════════════════════════════════════════════════════
+function renderTechStack() {
+  // Legend
+  const families = [...new Set(TECH_FREQ.map(t=>t.family))];
+  document.getElementById('bub-legend').innerHTML = families.map(f=>`
+    <div class="leg-item">
+      <div class="leg-dot" style="background:${FAMILY_COLOR[f]||'#888'}"></div>${f}
+    </div>`).join('');
+
+  // Bubbles
+  const maxCnt = Math.max(...TECH_FREQ.map(t=>t.count));
+  document.getElementById('bub-wrap').innerHTML = [...TECH_FREQ]
+    .sort((a,b)=>b.count-a.count)
+    .map(t=>{
+      const sz = Math.round(46+(t.count/maxCnt)*84);
+      const col = FAMILY_COLOR[t.family]||'#888';
+      const dark = ['Data','Docs','UI'].includes(t.family);
+      const tc = dark?'#111':'#fff';
+      const fs = sz<58?'0.58rem':sz<80?'0.66rem':'0.72rem';
+      return `<div class="bubble" title="${t.tech} · ${t.count} projects · ${t.family}"
+        style="width:${sz}px;height:${sz}px;background:${col};color:${tc};font-size:${fs}">
+        ${t.tech}<span class="bubble-cnt">${t.count}</span></div>`;
+    }).join('');
+
+  // Heatmap
+  const KEY_TECHS = ['React','Next.js','Vite','Supabase','Python','Mapbox','Prisma','Redis','SST','Tailwind','SQL','Google AI'];
+  function uses(p, tech) {
+    const all = [...p.stack,...p.techSignals].map(s=>s.toLowerCase());
+    const t = tech.toLowerCase();
+    if (t==='mapbox') return all.some(s=>s.includes('mapbox'));
+    if (t==='redis')  return all.some(s=>s.includes('redis')||s.includes('bullmq'));
+    if (t==='sst')    return all.some(s=>s.includes('sst')||s.includes('aws'));
+    if (t==='google ai') return all.some(s=>s.includes('google')||s.includes('gemini'));
+    return all.some(s=>s.includes(t));
+  }
+  const hmProjects = [...PROJECTS].filter(p=>p.totalLOC>=1000).sort((a,b)=>b.totalLOC-a.totalLOC);
+  document.getElementById('hm-table').innerHTML = `
+    <thead><tr>
+      <th class="rl">Project</th>
+      ${KEY_TECHS.map(t=>`<th>${t}</th>`).join('')}
+    </tr></thead>
+    <tbody>${hmProjects.map(p=>`
+      <tr>
+        <td class="rl">${p.name}${p.codeLocation==='worktree'?' <span style="color:var(--text-muted);font-size:0.65rem">🔧</span>':''}</td>
+        ${KEY_TECHS.map(t=>{const y=uses(p,t);return`<td><div class="hcell${y?' h-yes':''}">${y?'✓':''}</div></td>`}).join('')}
+      </tr>`).join('')}
+    </tbody>`;
+}
+
+// ══════════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════════
+(function init() {
+  renderKPI();
+  buildPills();
+  initOverviewCharts();
+  document.getElementById('lang-sel').addEventListener('change', renderGrid);
+  document.getElementById('sort-sel').addEventListener('change', renderGrid);
+  document.getElementById('search-inp').addEventListener('input', renderGrid);
+})();
+</script>
+</body>
+</html>
